@@ -8,16 +8,15 @@ export const HeaderContainer = styled.header`
   );
   color: ${(props) => props.theme["gray-100"]};
   position: fixed;
-  border: red solid 2px;
 `;
 
 export const ContentContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 12vh;
+  height: 7.5rem;
 `;
 export const BorderStyle = styled.div`
-  border-top: 10vh solid transparent;
+  border-top: 6rem solid transparent;
   border-right: 100vw solid ${(props) => props.theme["blue-50"]};
 `;

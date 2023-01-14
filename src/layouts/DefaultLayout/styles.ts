@@ -9,20 +9,21 @@ export const LayoutContainer = styled.div`
   flex-direction: column;
   gap: 1rem;
   border-left: 1px solid ${(props) => props.theme["purple-300"]};
+
   scrollbar-width: thin;
-  scrollbar-color: ${(props) => props.theme["purple-300"]};
+  scrollbar-color: transparent;
 
   &::-webkit-scrollbar {
     width: 1px;
-    height: 0.5px; /* A altura só é vista quando a rolagem é horizontal */
+    height: 0.5px;
   }
 
   &::-webkit-scrollbar-track {
-    background: ${(props) => props.theme["purple-300"]};
+    background: transparent;
     padding: 2px;
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: ${(props) => props.theme["purple-300"]};
+    background-color: transparent;
   }
 `;

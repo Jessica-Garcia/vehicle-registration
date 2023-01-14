@@ -7,6 +7,11 @@ export const GlobalStyle = createGlobalStyle`
         box-sizing: border-box;
    }
 
+   html{
+     display: flex;
+     flex-direction: column;
+   }
+
    :focus{
         outline: 0;
         box-shadow: 0 0 0 2px ${(props) => props.theme["purple-100"]};
@@ -19,7 +24,6 @@ export const GlobalStyle = createGlobalStyle`
           ${(props) => props.theme["purple-100"]}
           );
         color: ${(props) => props.theme["gray-100"]};
-        
    }
 
    body, input, textarea, button {
