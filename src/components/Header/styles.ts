@@ -14,7 +14,9 @@ export const ContentContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 7.5rem;
+  padding: 0 10%;
+  max-height: 13vh;
+  height: 5vh;
 `;
 export const BorderStyle = styled.div`
   border-top: 6rem solid transparent;

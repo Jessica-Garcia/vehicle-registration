@@ -8,7 +8,7 @@ export const LayoutContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  border-left: 1px solid ${(props) => props.theme["purple-300"]};
+  //border-left: 1px solid ${(props) => props.theme["purple-300"]};
 
   scrollbar-width: thin;
   scrollbar-color: transparent;
