@@ -4,7 +4,10 @@ export const Header = () => {
   return (
     <HeaderContainer>
       <ContentContainer>
-        <h1>LOGO</h1>
+        <div>
+          <a href="">L</a>
+          <span>LOGO</span>
+        </div>
         <button>Sign Up</button>
       </ContentContainer>
       <BorderStyle></BorderStyle>
