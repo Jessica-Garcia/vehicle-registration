@@ -2,8 +2,7 @@ import styled from "styled-components";
 
 export const HomeContainer = styled.main`
   width: 90%;
-  min-height: 50vh;
-  max-height: 82vh;
+  max-height: 77.8vh;
   margin: 9.1rem auto 0 auto;
   display: flex;
   flex-direction: column;
@@ -84,7 +83,6 @@ export const TbodyContainer = styled.div`
   flex-direction: column;
 
   tbody {
-    //border: solid ${(props) => props.theme["blue-400"]} 3px;
     padding: 0 0.3rem 0.3rem;
     overflow-y: scroll;
     scrollbar-color: ${(props) => props.theme["blue-300"]};
@@ -125,6 +123,7 @@ export const TbodyContainer = styled.div`
       & td:first-child {
         background: ${(props) => props.theme["blue-100"]};
         border-radius: 8px;
+        //margin-bottom: 0.5rem;
         color: ${(props) => props.theme["blue-400"]};
       }
 
