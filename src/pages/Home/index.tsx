@@ -1,4 +1,6 @@
 import { Pencil, Eye, Trash, Funnel } from "phosphor-react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 import {
   ButtonsContainer,
   Content,
@@ -7,7 +9,34 @@ import {
   TheadContainer,
   Title,
 } from "./styles";
+
+interface IVehicle {
+  id: number;
+  brand: string;
+  model: string;
+  version: string;
+  year: number;
+  licensePlate: string;
+}
+
 export const Home = () => {
+  const [vehicleList, setVehicleList] = useState<IVehicle[]>();
+
+  async function getVehicles() {
+    try {
+      const { data } = await axios.get<IVehicle[]>(
+        "http://localhost:3000/vehicles"
+      );
+      setVehicleList(data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    getVehicles();
+  }, []);
+
   return (
     <HomeContainer>
       <Title>
@@ -32,426 +61,31 @@ export const Home = () => {
           </TheadContainer>
           <TbodyContainer>
             <tbody>
-              <tr>
-                <td>Porsche</td>
-                <td>Cayenne</td>
-                <td>SUV</td>
-                <td>2022</td>
-                <td>abc 1226</td>
-                <td>
-                  <ButtonsContainer>
-                    <a>
-                      <Eye weight="bold" />
-                    </a>
-                    <a>
-                      <Pencil weight="bold" />
-                    </a>
-                    <a>
-                      <Trash weight="bold" />
-                    </a>
-                  </ButtonsContainer>
-                </td>
-              </tr>
-              <tr>
-                <td>Porsche</td>
-                <td>Cayenne</td>
-                <td>SUV</td>
-                <td>2022</td>
-                <td>abc 1226</td>
-                <td>
-                  <ButtonsContainer>
-                    <a>
-                      <Eye weight="bold" />
-                    </a>
-                    <a>
-                      <Pencil weight="bold" />
-                    </a>
-                    <a>
-                      <Trash weight="bold" />
-                    </a>
-                  </ButtonsContainer>
-                </td>
-              </tr>
-              <tr>
-                <td>Porsche</td>
-                <td>Cayenne</td>
-                <td>SUV</td>
-                <td>2022</td>
-                <td>abc 1226</td>
-                <td>
-                  <ButtonsContainer>
-                    <a>
-                      <Eye weight="bold" />
-                    </a>
-                    <a>
-                      <Pencil weight="bold" />
-                    </a>
-                    <a>
-                      <Trash weight="bold" />
-                    </a>
-                  </ButtonsContainer>
-                </td>
-              </tr>
-              <tr>
-                <td>Porsche</td>
-                <td>Cayenne</td>
-                <td>SUV</td>
-                <td>2022</td>
-                <td>abc 1226</td>
-                <td>
-                  <ButtonsContainer>
-                    <a>
-                      <Eye weight="bold" />
-                    </a>
-                    <a>
-                      <Pencil weight="bold" />
-                    </a>
-                    <a>
-                      <Trash weight="bold" />
-                    </a>
-                  </ButtonsContainer>
-                </td>
-              </tr>
-              <tr>
-                <td>Porsche</td>
-                <td>Cayenne</td>
-                <td>SUV</td>
-                <td>2022</td>
-                <td>abc 1226</td>
-                <td>
-                  <ButtonsContainer>
-                    <a>
-                      <Eye weight="bold" />
-                    </a>
-                    <a>
-                      <Pencil weight="bold" />
-                    </a>
-                    <a>
-                      <Trash weight="bold" />
-                    </a>
-                  </ButtonsContainer>
-                </td>
-              </tr>
-              <tr>
-                <td>Porsche</td>
-                <td>Cayenne</td>
-                <td>SUV</td>
-                <td>2022</td>
-                <td>abc 1226</td>
-                <td>
-                  <ButtonsContainer>
-                    <a>
-                      <Eye weight="bold" />
-                    </a>
-                    <a>
-                      <Pencil weight="bold" />
-                    </a>
-                    <a>
-                      <Trash weight="bold" />
-                    </a>
-                  </ButtonsContainer>
-                </td>
-              </tr>
-              <tr>
-                <td>Porsche</td>
-                <td>Cayenne</td>
-                <td>SUV</td>
-                <td>2022</td>
-                <td>abc 1226</td>
-                <td>
-                  <ButtonsContainer>
-                    <a>
-                      <Eye weight="bold" />
-                    </a>
-                    <a>
-                      <Pencil weight="bold" />
-                    </a>
-                    <a>
-                      <Trash weight="bold" />
-                    </a>
-                  </ButtonsContainer>
-                </td>
-              </tr>
-              <tr>
-                <td>Porsche</td>
-                <td>Cayenne</td>
-                <td>SUV</td>
-                <td>2022</td>
-                <td>abc 1226</td>
-                <td>
-                  <ButtonsContainer>
-                    <a>
-                      <Eye weight="bold" />
-                    </a>
-                    <a>
-                      <Pencil weight="bold" />
-                    </a>
-                    <a>
-                      <Trash weight="bold" />
-                    </a>
-                  </ButtonsContainer>
-                </td>
-              </tr>
-              <tr>
-                <td>Porsche</td>
-                <td>Cayenne</td>
-                <td>SUV</td>
-                <td>2022</td>
-                <td>abc 1226</td>
-                <td>
-                  <ButtonsContainer>
-                    <a>
-                      <Eye weight="bold" />
-                    </a>
-                    <a>
-                      <Pencil weight="bold" />
-                    </a>
-                    <a>
-                      <Trash weight="bold" />
-                    </a>
-                  </ButtonsContainer>
-                </td>
-              </tr>
-              <tr>
-                <td>Porsche</td>
-                <td>Cayenne</td>
-                <td>SUV</td>
-                <td>2022</td>
-                <td>abc 1226</td>
-                <td>
-                  <ButtonsContainer>
-                    <a>
-                      <Eye weight="bold" />
-                    </a>
-                    <a>
-                      <Pencil weight="bold" />
-                    </a>
-                    <a>
-                      <Trash weight="bold" />
-                    </a>
-                  </ButtonsContainer>
-                </td>
-              </tr>
-              <tr>
-                <td>Porsche</td>
-                <td>Cayenne</td>
-                <td>SUV</td>
-                <td>2022</td>
-                <td>abc 1226</td>
-                <td>
-                  <ButtonsContainer>
-                    <a>
-                      <Eye weight="bold" />
-                    </a>
-                    <a>
-                      <Pencil weight="bold" />
-                    </a>
-                    <a>
-                      <Trash weight="bold" />
-                    </a>
-                  </ButtonsContainer>
-                </td>
-              </tr>
-              <tr>
-                <td>Porsche</td>
-                <td>Cayenne</td>
-                <td>SUV</td>
-                <td>2022</td>
-                <td>abc 1226</td>
-                <td>
-                  <ButtonsContainer>
-                    <a>
-                      <Eye weight="bold" />
-                    </a>
-                    <a>
-                      <Pencil weight="bold" />
-                    </a>
-                    <a>
-                      <Trash weight="bold" />
-                    </a>
-                  </ButtonsContainer>
-                </td>
-              </tr>
-              <tr>
-                <td>Porsche</td>
-                <td>Cayenne</td>
-                <td>SUV</td>
-                <td>2022</td>
-                <td>abc 1226</td>
-                <td>
-                  <ButtonsContainer>
-                    <a>
-                      <Eye weight="bold" />
-                    </a>
-                    <a>
-                      <Pencil weight="bold" />
-                    </a>
-                    <a>
-                      <Trash weight="bold" />
-                    </a>
-                  </ButtonsContainer>
-                </td>
-              </tr>
-              <tr>
-                <td>Porsche</td>
-                <td>Cayenne</td>
-                <td>SUV</td>
-                <td>2022</td>
-                <td>abc 1226</td>
-                <td>
-                  <ButtonsContainer>
-                    <a>
-                      <Eye weight="bold" />
-                    </a>
-                    <a>
-                      <Pencil weight="bold" />
-                    </a>
-                    <a>
-                      <Trash weight="bold" />
-                    </a>
-                  </ButtonsContainer>
-                </td>
-              </tr>
-              <tr>
-                <td>Porsche</td>
-                <td>Cayenne</td>
-                <td>SUV</td>
-                <td>2022</td>
-                <td>abc 1226</td>
-                <td>
-                  <ButtonsContainer>
-                    <a>
-                      <Eye weight="bold" />
-                    </a>
-                    <a>
-                      <Pencil weight="bold" />
-                    </a>
-                    <a>
-                      <Trash weight="bold" />
-                    </a>
-                  </ButtonsContainer>
-                </td>
-              </tr>
-              <tr>
-                <td>Porsche</td>
-                <td>Cayenne</td>
-                <td>SUV</td>
-                <td>2022</td>
-                <td>abc 1226</td>
-                <td>
-                  <ButtonsContainer>
-                    <a>
-                      <Eye weight="bold" />
-                    </a>
-                    <a>
-                      <Pencil weight="bold" />
-                    </a>
-                    <a>
-                      <Trash weight="bold" />
-                    </a>
-                  </ButtonsContainer>
-                </td>
-              </tr>
-              <tr>
-                <td>Porsche</td>
-                <td>Cayenne</td>
-                <td>SUV</td>
-                <td>2022</td>
-                <td>abc 1226</td>
-                <td>
-                  <ButtonsContainer>
-                    <a>
-                      <Eye weight="bold" />
-                    </a>
-                    <a>
-                      <Pencil weight="bold" />
-                    </a>
-                    <a>
-                      <Trash weight="bold" />
-                    </a>
-                  </ButtonsContainer>
-                </td>
-              </tr>
-              <tr>
-                <td>Porsche</td>
-                <td>Cayenne</td>
-                <td>SUV</td>
-                <td>2022</td>
-                <td>abc 1226</td>
-                <td>
-                  <ButtonsContainer>
-                    <a>
-                      <Eye weight="bold" />
-                    </a>
-                    <a>
-                      <Pencil weight="bold" />
-                    </a>
-                    <a>
-                      <Trash weight="bold" />
-                    </a>
-                  </ButtonsContainer>
-                </td>
-              </tr>
-              <tr>
-                <td>Porsche</td>
-                <td>Cayenne</td>
-                <td>SUV</td>
-                <td>2022</td>
-                <td>abc 1226</td>
-                <td>
-                  <ButtonsContainer>
-                    <a>
-                      <Eye weight="bold" />
-                    </a>
-                    <a>
-                      <Pencil weight="bold" />
-                    </a>
-                    <a>
-                      <Trash weight="bold" />
-                    </a>
-                  </ButtonsContainer>
-                </td>
-              </tr>
-              <tr>
-                <td>Porsche</td>
-                <td>Cayenne</td>
-                <td>SUV</td>
-                <td>2022</td>
-                <td>abc 1226</td>
-                <td>
-                  <ButtonsContainer>
-                    <a>
-                      <Eye weight="bold" />
-                    </a>
-                    <a>
-                      <Pencil weight="bold" />
-                    </a>
-                    <a>
-                      <Trash weight="bold" />
-                    </a>
-                  </ButtonsContainer>
-                </td>
-              </tr>
-              <tr>
-                <td>Porsche</td>
-                <td>Cayenne</td>
-                <td>SUV</td>
-                <td>2022</td>
-                <td>abc 1226</td>
-                <td>
-                  <ButtonsContainer>
-                    <a>
-                      <Eye weight="bold" />
-                    </a>
-                    <a>
-                      <Pencil weight="bold" />
-                    </a>
-                    <a>
-                      <Trash weight="bold" />
-                    </a>
-                  </ButtonsContainer>
-                </td>
-              </tr>
+              {vehicleList &&
+                vehicleList.map((vehicle) => {
+                  return (
+                    <tr key={vehicle.id}>
+                      <td>{vehicle.brand}</td>
+                      <td>{vehicle.model}</td>
+                      <td>{vehicle.version}</td>
+                      <td>{vehicle.year}</td>
+                      <td>{vehicle.licensePlate}</td>
+                      <td>
+                        <ButtonsContainer>
+                          <a>
+                            <Eye weight="bold" />
+                          </a>
+                          <a>
+                            <Pencil weight="bold" />
+                          </a>
+                          <a>
+                            <Trash weight="bold" />
+                          </a>
+                        </ButtonsContainer>
+                      </td>
+                    </tr>
+                  );
+                })}
             </tbody>
           </TbodyContainer>
         </table>
