@@ -1,0 +1,20 @@
+{
+    "vehicles": [
+        {
+            "id": 1,
+            "brand": "Porsche",
+            "model": "Cayenne",
+            "version": "SUV",
+            "year": 2022,
+            "licensePlate": "abc1226"
+        },
+        {
+            "id": 2,
+            "brand": "BMW",
+            "model": "X1",
+            "version": "SUV",
+            "year": 2022,
+            "licensePlate": "12345"
+        }
+    ]
+}
