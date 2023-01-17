@@ -7,13 +7,22 @@ export const GlobalStyle = createGlobalStyle`
         box-sizing: border-box;
    }
 
+   html{
+     display: flex;
+     flex-direction: column;
+   }
+
    :focus{
         outline: 0;
-        box-shadow: 0 0 0 2px ${(props) => props.theme["purple-500"]};
+        box-shadow: 0 0 0 2px ${(props) => props.theme["purple-100"]};
    }
 
    body {
-        background: ${(props) => props.theme["purple-900"]};
+        background: linear-gradient(to right bottom, 
+          ${(props) => props.theme["blue-200"]}, 
+          ${(props) => props.theme["purple-300"]},
+          ${(props) => props.theme["purple-100"]}
+          );
         color: ${(props) => props.theme["gray-100"]};
    }
 
