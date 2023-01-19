@@ -1,20 +1,140 @@
 {
-    "vehicles": [
-        {
-            "id": 1,
-            "brand": "Porsche",
-            "model": "Cayenne",
-            "version": "SUV",
-            "year": 2022,
-            "licensePlate": "abc1226"
-        },
-        {
-            "id": 2,
-            "brand": "BMW",
-            "model": "X1",
-            "version": "SUV",
-            "year": 2022,
-            "licensePlate": "12345"
-        }
-    ]
+  "vehicles": [
+    {
+      "id": 1,
+      "brand": "Porsche",
+      "model": "Cayenne",
+      "version": "SUV",
+      "year": 2022,
+      "licensePlate": "abc12261"
+    },
+    {
+      "id": 2,
+      "brand": "BMW",
+      "model": "X1",
+      "version": "SUV",
+      "year": 2022,
+      "licensePlate": "12345"
+    },
+    {
+      "id": 3,
+      "brand": "Porsche",
+      "model": "Panamera",
+      "version": "Sedan",
+      "year": 2021,
+      "licensePlate": "456879"
+    },
+    {
+      "id": 4,
+      "brand": "BMW",
+      "model": "X5",
+      "version": "SUV",
+      "year": 2023,
+      "licensePlate": "582147"
+    },
+    {
+      "id": 5,
+      "brand": "Hyunday",
+      "model": "Creta",
+      "version": "SUV",
+      "year": 2020,
+      "licensePlate": "158730"
+    },
+    {
+      "id": 6,
+      "brand": "Nissam",
+      "model": "Frontier",
+      "version": "SUV",
+      "year": 2020,
+      "licensePlate": "1010091"
+    },
+    {
+      "id": 7,
+      "brand": "Porsche",
+      "model": "Cayenne",
+      "version": "SUV",
+      "year": 2022,
+      "licensePlate": "abc122262"
+    },
+    {
+      "id": 8,
+      "brand": "BMW",
+      "model": "X1",
+      "version": "SUV",
+      "year": 2022,
+      "licensePlate": "123453"
+    },
+    {
+      "id": 9,
+      "brand": "Porsche",
+      "model": "Panamera",
+      "version": "Sedan",
+      "year": 2021,
+      "licensePlate": "4568794"
+    },
+    {
+      "id": 10,
+      "brand": "BMW",
+      "model": "X5",
+      "version": "SUV",
+      "year": 2023,
+      "licensePlate": "5821475"
+    },
+    {
+      "id": 11,
+      "brand": "Hyunday",
+      "model": "Creta",
+      "version": "SUV",
+      "year": 2020,
+      "licensePlate": "1587306"
+    },
+    {
+      "id": 12,
+      "brand": "Nissam",
+      "model": "Frontier",
+      "version": "SUV",
+      "year": 2020,
+      "licensePlate": "1010097"
+    },
+    {
+      "id": 13,
+      "brand": "Porsche",
+      "model": "Cayenne",
+      "version": "SUV",
+      "year": 2022,
+      "licensePlate": "ab2c12268"
+    },
+    {
+      "id": 14,
+      "brand": "BMW",
+      "model": "X1",
+      "version": "SUV",
+      "year": 2022,
+      "licensePlate": "123459"
+    },
+    {
+      "id": 15,
+      "brand": "Porsche",
+      "model": "Panamera",
+      "version": "Sedan",
+      "year": 2021,
+      "licensePlate": "4568719"
+    },
+    {
+      "id": 16,
+      "brand": "BMW",
+      "model": "X5",
+      "version": "SUV",
+      "year": 2023,
+      "licensePlate": "5821247"
+    },
+    {
+      "id": 17,
+      "brand": "Hyunday",
+      "model": "Creta",
+      "version": "SUV",
+      "year": 2020,
+      "licensePlate": "1587330"
+    }
+  ]
 }
