@@ -10,6 +10,28 @@ export const HomeContainer = styled.main`
   overflow-y: hidden;
 `;
 
+export const AddButton = styled.button`
+  align-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: none;
+  height: 2.5rem;
+  width: 10rem;
+  font-weight: bold;
+  font-size: 0.9rem;
+  border-radius: 15px;
+  background: ${(props) => props.theme["blue-200"]};
+  margin-top: 1rem;
+  color: ${(props) => props.theme.white};
+
+  &:hover {
+    cursor: pointer;
+    background: ${(props) => props.theme["blue-300"]};
+  }
+`;
+
 export const Title = styled.div`
   background: ${(props) => props.theme["blue-50"]};
   height: 3.5rem;
@@ -45,25 +67,18 @@ export const Title = styled.div`
   }
 `;
 
-export const TheadContainer = styled.div`
+export const TheadContainer = styled.thead`
   background: ${(props) => props.theme["blue-50"]};
 
   display: flex;
-  flex: 1;
-
   padding: 1rem 0;
   width: 100%;
-  align-self: center;
-  padding-right: 0.6rem;
-  border-radius: 8px;
-
   //border: solid blueviolet 5px;
 
-  thead {
+  tr {
+    display: flex;
     flex: 1;
-    padding: 0 0.6rem;
-    //border: solid brown 2px;
-    width: 100%;
+    padding-right: 0.6rem;
 
     th {
       color: ${(props) => props.theme["blue-200"]};
@@ -71,71 +86,86 @@ export const TheadContainer = styled.div`
       display: flex;
       justify-content: center;
       width: 100%;
-      //border: solid black 2px;
+      // border: solid black 2px;
     }
   }
 `;
 
-export const TbodyContainer = styled.div`
+export const TbodyContainer = styled.tbody`
   //border: solid green 4px;
   overflow-y: hidden;
   display: flex;
   flex-direction: column;
+  padding: 0 0.3rem 0.3rem;
+  overflow-y: scroll;
+  scrollbar-color: ${(props) => props.theme["blue-300"]};
+  scrollbar-width: thin;
 
-  tbody {
-    padding: 0 0.3rem 0.3rem;
-    overflow-y: scroll;
-    scrollbar-color: ${(props) => props.theme["blue-300"]};
-    scrollbar-width: thin;
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 5px;
+  }
 
-    &::-webkit-scrollbar {
-      width: 8px;
-      height: 5px;
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    width: 5px;
+    background-color: ${(props) => props.theme["purple-300"]};
+    border-radius: 20px;
+  }
+
+  tr {
+    display: flex;
+    gap: 1rem;
+
+    td {
+      flex-grow: 1;
+      height: 2rem;
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      font-size: 0.875rem;
+      line-height: 1.6;
+      color: ${(props) => props.theme["purple-300"]};
+      font-weight: bold;
+
+      &:nth-of-type(5) {
+        color: ${(props) => props.theme["pink-400"]};
+      }
     }
 
-    &::-webkit-scrollbar-track {
-      background: transparent;
+    &:nth-child(even) td {
+      background: ${(props) => props.theme["blue-100"]};
+      align-items: center;
     }
 
-    &::-webkit-scrollbar-thumb {
-      width: 5px;
-      background-color: ${(props) => props.theme["purple-300"]};
-      border-radius: 20px;
+    &:nth-child(odd) td {
+      background: ${(props) => props.theme.white};
+      height: 3rem;
+      align-items: center;
     }
 
-    tr {
-      &:nth-child(even) td {
-        background: ${(props) => props.theme["blue-100"]};
-        align-items: center;
-      }
+    &:nth-child(odd) td:first-child {
+      height: 2rem;
+      align-self: center;
+    }
 
-      &:nth-child(odd) td {
-        background: ${(props) => props.theme.white};
-        height: 3rem;
-        align-items: center;
-      }
+    & td:first-child {
+      background: ${(props) => props.theme["blue-100"]};
+      border-radius: 8px;
+      color: ${(props) => props.theme["blue-400"]};
+    }
 
-      &:nth-child(odd) td:first-child {
-        height: 2rem;
-        align-self: center;
-      }
+    &:first-child td {
+      border-top-right-radius: 8px;
+      border-top-left-radius: 8px;
+    }
 
-      & td:first-child {
-        background: ${(props) => props.theme["blue-100"]};
-        border-radius: 8px;
-        //margin-bottom: 0.5rem;
-        color: ${(props) => props.theme["blue-400"]};
-      }
-
-      &:first-child td {
-        border-top-right-radius: 8px;
-        border-top-left-radius: 8px;
-      }
-
-      &:last-child td {
-        border-bottom-right-radius: 8px;
-        border-bottom-left-radius: 8px;
-      }
+    &:last-child td {
+      border-bottom-right-radius: 8px;
+      border-bottom-left-radius: 8px;
     }
   }
 `;
@@ -143,7 +173,6 @@ export const TbodyContainer = styled.div`
 export const Content = styled.div`
   flex: 1;
   margin-top: 0.2rem;
-
   border-radius: 8px;
   //border: solid ${(props) => props.theme["blue-400"]} 5px;
 
@@ -157,27 +186,6 @@ export const Content = styled.div`
     display: flex;
     flex-direction: column;
     border-radius: 8px;
-
-    tr {
-      display: flex;
-      gap: 1rem;
-
-      td:nth-of-type(5) {
-        color: ${(props) => props.theme["pink-400"]};
-      }
-
-      td {
-        flex-grow: 1;
-        height: 2rem;
-        display: flex;
-        justify-content: center;
-        width: 100%;
-        font-size: 0.875rem;
-        line-height: 1.6;
-        color: ${(props) => props.theme["purple-300"]};
-        font-weight: bold;
-      }
-    }
   }
 `;
 export const ButtonsContainer = styled.div`

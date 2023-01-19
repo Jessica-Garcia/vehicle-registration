@@ -1,7 +1,9 @@
-import { Pencil, Eye, Trash, Funnel } from "phosphor-react";
+import { Pencil, Eye, Trash, Funnel, PlusCircle } from "phosphor-react";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { IVehicle } from "../../interfaces/IVehicle";
 import {
+  AddButton,
   ButtonsContainer,
   Content,
   HomeContainer,
@@ -9,29 +11,43 @@ import {
   TheadContainer,
   Title,
 } from "./styles";
+import { NavLink } from "react-router-dom";
+import Modal from "react-modal";
 
-interface IVehicle {
-  id: number;
-  brand: string;
-  model: string;
-  version: string;
-  year: number;
-  licensePlate: string;
-}
+Modal.setAppElement("#root");
 
 export const Home = () => {
   const [vehicleList, setVehicleList] = useState<IVehicle[]>();
 
-  async function getVehicles() {
+  /* const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  const handleOpenDeleteModal = () => {
+    setShowDeleteModal(true);
+  };
+
+  const handleCloseDeleteModal = () => {
+    setShowDeleteModal(false);
+  };
+ */
+  const getVehicles = async () => {
     try {
       const { data } = await axios.get<IVehicle[]>(
         "http://localhost:3000/vehicles"
       );
-      setVehicleList(data);
+
+      data && setVehicleList(data);
     } catch (error) {
       console.error(error);
     }
-  }
+  };
+
+  const handleDeleteVehicle = async (id: number) => {
+    await axios.delete<IVehicle>(`http://localhost:3000/vehicles/${id}`);
+    const newVehicleList = vehicleList?.filter((vehicle) => {
+      return vehicle.id !== id;
+    });
+    setVehicleList(newVehicleList);
+  };
 
   useEffect(() => {
     getVehicles();
@@ -48,48 +64,50 @@ export const Home = () => {
       <Content>
         <table>
           <TheadContainer>
-            <thead>
-              <tr>
-                <th>Marca</th>
-                <th>Modelo</th>
-                <th>Versão</th>
-                <th>Ano</th>
-                <th>Placa</th>
-                <th>Ações</th>
-              </tr>
-            </thead>
+            <tr>
+              <th>Placa</th>
+              <th>Marca</th>
+              <th>Modelo</th>
+              <th>Versão</th>
+              <th>Ano</th>
+              <th>Ações</th>
+            </tr>
           </TheadContainer>
           <TbodyContainer>
-            <tbody>
-              {vehicleList &&
-                vehicleList.map((vehicle) => {
-                  return (
-                    <tr key={vehicle.id}>
-                      <td>{vehicle.brand}</td>
-                      <td>{vehicle.model}</td>
-                      <td>{vehicle.version}</td>
-                      <td>{vehicle.year}</td>
-                      <td>{vehicle.licensePlate}</td>
-                      <td>
-                        <ButtonsContainer>
-                          <a>
-                            <Eye weight="bold" />
-                          </a>
-                          <a>
-                            <Pencil weight="bold" />
-                          </a>
-                          <a>
-                            <Trash weight="bold" />
-                          </a>
-                        </ButtonsContainer>
-                      </td>
-                    </tr>
-                  );
-                })}
-            </tbody>
+            {vehicleList &&
+              vehicleList.map((vehicle) => {
+                return (
+                  <tr key={vehicle.id}>
+                    <td>{vehicle.licensePlate}</td>
+                    <td>{vehicle.brand}</td>
+                    <td>{vehicle.model}</td>
+                    <td>{vehicle.version}</td>
+                    <td>{vehicle.year}</td>
+                    <td>
+                      <ButtonsContainer>
+                        <NavLink to={`/vehicle/${vehicle.id}`}>
+                          <Eye weight="bold" />
+                        </NavLink>
+                        <NavLink to="/">
+                          <Pencil weight="bold" />
+                        </NavLink>
+                        <NavLink
+                          to="/"
+                          onClick={() => handleDeleteVehicle(vehicle.id)}
+                        >
+                          <Trash weight="bold" />
+                        </NavLink>
+                      </ButtonsContainer>
+                    </td>
+                  </tr>
+                );
+              })}
           </TbodyContainer>
         </table>
       </Content>
+      <AddButton>
+        <PlusCircle weight="bold" size={20} /> Novo veículo
+      </AddButton>
     </HomeContainer>
   );
 };
