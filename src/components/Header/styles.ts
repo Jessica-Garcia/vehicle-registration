@@ -59,6 +59,10 @@ export const ContentContainer = styled.div`
     background: ${(props) => props.theme["purple-100"]};
     opacity: 0.8;
     color: ${(props) => props.theme.white};
+    :hover {
+      cursor: pointer;
+      opacity: 0.9;
+    }
   }
 `;
 export const BorderStyle = styled.div`
