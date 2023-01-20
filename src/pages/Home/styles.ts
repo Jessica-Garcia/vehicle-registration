@@ -10,7 +10,7 @@ export const HomeContainer = styled.main`
   overflow-y: hidden;
 `;
 
-export const AddButton = styled.button`
+export const AddButton = styled.a`
   align-self: center;
   display: flex;
   align-items: center;
@@ -25,6 +25,7 @@ export const AddButton = styled.button`
   background: ${(props) => props.theme["blue-200"]};
   margin-top: 1rem;
   color: ${(props) => props.theme.white};
+  text-decoration: none;
 
   &:hover {
     cursor: pointer;

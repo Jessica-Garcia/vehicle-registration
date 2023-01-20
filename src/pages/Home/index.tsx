@@ -12,9 +12,10 @@ import {
   Title,
 } from "./styles";
 import { NavLink } from "react-router-dom";
-import Modal from "react-modal";
 
-Modal.setAppElement("#root");
+// import Modal from "react-modal";
+
+// Modal.setAppElement("#root");
 
 export const Home = () => {
   const [vehicleList, setVehicleList] = useState<IVehicle[]>();
@@ -31,7 +32,7 @@ export const Home = () => {
  */
   const getVehicles = async () => {
     try {
-      const { data } = await axios.get<IVehicle[]>(
+      const { data } = await axios.get<IVehicle[] | undefined>(
         "http://localhost:3000/vehicles"
       );
 
@@ -41,7 +42,7 @@ export const Home = () => {
     }
   };
 
-  const handleDeleteVehicle = async (id: number) => {
+  const handleDeleteVehicle = async (id: string | undefined) => {
     await axios.delete<IVehicle>(`http://localhost:3000/vehicles/${id}`);
     const newVehicleList = vehicleList?.filter((vehicle) => {
       return vehicle.id !== id;
@@ -105,7 +106,7 @@ export const Home = () => {
           </TbodyContainer>
         </table>
       </Content>
-      <AddButton>
+      <AddButton href="/addVehicle">
         <PlusCircle weight="bold" size={20} /> Novo veículo
       </AddButton>
     </HomeContainer>
