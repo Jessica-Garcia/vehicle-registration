@@ -24,7 +24,7 @@ export const Home = () => {
     setVehicleList(newVehicleList);
   };
 
-  const handleDeleteVehicle = async (id: string | undefined) => {
+  const handleDeleteVehicle = (id: string | undefined) => {
     try {
       deleteVehicle(id);
     } catch (error) {
