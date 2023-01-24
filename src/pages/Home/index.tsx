@@ -13,36 +13,10 @@ import {
 } from "./styles";
 import { NavLink } from "react-router-dom";
 
-// import Modal from "react-modal";
-
-// Modal.setAppElement("#root");
-
 export const Home = () => {
   const [vehicleList, setVehicleList] = useState<IVehicle[]>();
 
-  /* const [showDeleteModal, setShowDeleteModal] = useState(false);
-
-  const handleOpenDeleteModal = () => {
-    setShowDeleteModal(true);
-  };
-
-  const handleCloseDeleteModal = () => {
-    setShowDeleteModal(false);
-  };
- */
-  const getVehicles = async () => {
-    try {
-      const { data } = await axios.get<IVehicle[] | undefined>(
-        "http://localhost:3000/vehicles"
-      );
-
-      data && setVehicleList(data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const handleDeleteVehicle = async (id: string | undefined) => {
+  const deleteVehicle = async (id: string | undefined) => {
     await axios.delete<IVehicle>(`http://localhost:3000/vehicles/${id}`);
     const newVehicleList = vehicleList?.filter((vehicle) => {
       return vehicle.id !== id;
@@ -50,8 +24,31 @@ export const Home = () => {
     setVehicleList(newVehicleList);
   };
 
+  const handleDeleteVehicle = async (id: string | undefined) => {
+    try {
+      deleteVehicle(id);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const getVehicles = async () => {
+    const { data } = await axios.get<IVehicle[] | undefined>(
+      "http://localhost:3000/vehicles"
+    );
+
+    data && setVehicleList(data);
+  };
+
   useEffect(() => {
-    getVehicles();
+    const showVehicles = () => {
+      try {
+        getVehicles();
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    showVehicles();
   }, []);
 
   return (
@@ -89,7 +86,7 @@ export const Home = () => {
                         <NavLink to={`/vehicle/${vehicle.id}`}>
                           <Eye weight="bold" />
                         </NavLink>
-                        <NavLink to="/">
+                        <NavLink to={`/vehicle/edit/${vehicle.id}`}>
                           <Pencil weight="bold" />
                         </NavLink>
                         <NavLink
@@ -106,7 +103,7 @@ export const Home = () => {
           </TbodyContainer>
         </table>
       </Content>
-      <AddButton href="/addVehicle">
+      <AddButton href="/vehicle/add">
         <PlusCircle weight="bold" size={20} /> Novo veículo
       </AddButton>
     </HomeContainer>
