@@ -13,8 +13,18 @@ import {
 } from "./styles";
 import { NavLink } from "react-router-dom";
 
+export interface IBrand {
+  nome: string;
+  codigo: string;
+}
+
+export interface IModel {
+  nome: string;
+  codigo: string;
+}
 export const Home = () => {
   const [vehicleList, setVehicleList] = useState<IVehicle[]>();
+  const [brandList, setBrandList] = useState<IBrand[]>();
 
   const deleteVehicle = async (id: string | undefined) => {
     await axios.delete<IVehicle>(`http://localhost:3000/vehicles/${id}`);
@@ -30,6 +40,14 @@ export const Home = () => {
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const getBrands = async () => {
+    const { data } = await axios.get<IBrand[] | undefined>(
+      "https://parallelum.com.br/fipe/api/v1/carros/marcas"
+    );
+
+    console.log(data);
   };
 
   const getVehicles = async () => {
@@ -49,6 +67,7 @@ export const Home = () => {
       }
     };
     showVehicles();
+    getBrands();
   }, []);
 
   return (
