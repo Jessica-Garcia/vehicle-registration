@@ -13,6 +13,7 @@ export interface ISelectProps<T> {
   value: string;
   url: string;
   name: string;
+  disabled?: boolean;
 }
 
 export const Select = <T extends selectOptionProps>({
@@ -20,23 +21,45 @@ export const Select = <T extends selectOptionProps>({
   value,
   url,
   name,
+  disabled = false,
 }: ISelectProps<T>) => {
   const [list, setList] = useState<T[]>([]);
 
+  type Models = {
+    modelos: T[];
+    anos: selectOptionProps[];
+  };
+
   useEffect(() => {
     const getList = async () => {
-      const { data } = await axios.get<T[] | undefined>(url);
-
-      data && setList(data);
+      if (!disabled) {
+        const { data } = await axios.get<T[] | Models | undefined>(url);
+        if (data) {
+          if (Array.isArray(data)) {
+            setList(data);
+          } else {
+            setList(data.modelos);
+          }
+        }
+      }
     };
     getList();
-  }, [url]);
-
-  console.log(name, value);
+  }, [disabled, url]);
 
   return (
-    <select name={name} id="" value={value} onChange={selectChange}>
-      {list.length &&
+    <select
+      disabled={disabled}
+      name={name}
+      id=""
+      value={value}
+      onChange={selectChange}
+      defaultValue=""
+    >
+      <option value="" disabled>
+        Selecione um valor
+      </option>
+      {list &&
+        list.length &&
         list.map((item) => {
           return (
             <option key={item.codigo} value={item.codigo}>
