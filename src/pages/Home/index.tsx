@@ -13,18 +13,13 @@ import {
 } from "./styles";
 import { NavLink } from "react-router-dom";
 
-export interface IBrand {
+export interface IVehicleAttributes {
   nome: string;
   codigo: string;
 }
 
-export interface IModel {
-  nome: string;
-  codigo: string;
-}
 export const Home = () => {
   const [vehicleList, setVehicleList] = useState<IVehicle[]>();
-  const [brandList, setBrandList] = useState<IBrand[]>();
 
   const deleteVehicle = async (id: string | undefined) => {
     await axios.delete<IVehicle>(`http://localhost:3000/vehicles/${id}`);
@@ -43,7 +38,7 @@ export const Home = () => {
   };
 
   const getBrands = async () => {
-    const { data } = await axios.get<IBrand[] | undefined>(
+    const { data } = await axios.get<IVehicleAttributes[] | undefined>(
       "https://parallelum.com.br/fipe/api/v1/carros/marcas"
     );
 
@@ -85,7 +80,6 @@ export const Home = () => {
               <th>Placa</th>
               <th>Marca</th>
               <th>Modelo</th>
-              <th>Versão</th>
               <th>Ano</th>
               <th>Ações</th>
             </tr>
@@ -98,11 +92,10 @@ export const Home = () => {
                     <td>{vehicle.licensePlate}</td>
                     <td>{vehicle.brand}</td>
                     <td>{vehicle.model}</td>
-                    <td>{vehicle.version}</td>
                     <td>{vehicle.year}</td>
                     <td>
                       <ButtonsContainer>
-                        <NavLink to={`/vehicle/${vehicle.id}`}>
+                        <NavLink to={`/vehicle/view/${vehicle.id}`}>
                           <Eye weight="bold" />
                         </NavLink>
                         <NavLink to={`/vehicle/edit/${vehicle.id}`}>
