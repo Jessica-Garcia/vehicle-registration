@@ -8,8 +8,8 @@ export const Router = () => {
     <Routes>
       <Route path="/" element={<DefaultLayout />}>
         <Route path="/" element={<Home />} />
-        <Route path="/vehicle/:id" element={<Vehicle />} />
         <Route path="/vehicle/add" element={<Vehicle />} />
+        <Route path="/vehicle/view/:id" element={<Vehicle />} />
         <Route path="vehicle/edit/:id" element={<Vehicle />} />
       </Route>
     </Routes>
