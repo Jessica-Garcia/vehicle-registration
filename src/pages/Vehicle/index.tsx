@@ -6,7 +6,7 @@ import axios from "axios";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { Select } from "../../components/Select";
-import { IBrand, IModel } from "../Home";
+import { IVehicleAttributes } from "../Home";
 
 export const Vehicle = () => {
   const [vehicle, setVehicle] = useState<IVehicle>({} as IVehicle);
@@ -21,13 +21,6 @@ export const Vehicle = () => {
       [e.target.name]: e.target.value,
     }));
   };
-
-  /*  const handleSelectChange = (target: string, value: string) => {
-    setVehicle((currentValue) => ({
-      ...currentValue,
-      [target]: value,
-    }));
-  }; */
 
   const editVehicle = async () => {
     await axios.put<IVehicle>(`http://localhost:3000/vehicles/${id}`, vehicle);
@@ -59,17 +52,34 @@ export const Vehicle = () => {
   useEffect(() => {
     const getVehicle = async () => {
       try {
-        const { data } = await axios.get<IVehicle>(
-          `http://localhost:3000/vehicles/${id}`
-        );
+        if (id) {
+          const { data } = await axios.get<IVehicle>(
+            `http://localhost:3000/vehicles/${id}`
+          );
 
-        data && setVehicle(data);
+          data && setVehicle(data);
+        }
       } catch (error) {
         console.error(error);
       }
     };
     getVehicle();
   }, [id]);
+
+  useEffect(() => {
+    setVehicle((state) => ({
+      ...state,
+      model: "",
+      year: "",
+    }));
+  }, [vehicle.brand]);
+
+  useEffect(() => {
+    setVehicle((state) => ({
+      ...state,
+      year: "",
+    }));
+  }, [vehicle.model]);
 
   return (
     <VehicleInfo>
@@ -95,45 +105,28 @@ export const Vehicle = () => {
           />
           <label htmlFor="brand">Marca</label>
 
-          <Select<IBrand>
+          <Select<IVehicleAttributes>
             selectChange={handleInputChange}
             value={vehicle?.brand}
-            name={"brand"}
+            name="brand"
             url={"https://parallelum.com.br/fipe/api/v1/carros/marcas"}
           ></Select>
           <label htmlFor="model">Modelo</label>
-          {/* <input
-            type="text"
-            name="model"
-            id="model"
-            value={vehicle?.model}
-            onChange={handleInputChange}
-            required
-          /> */}
-          <Select<IModel>
+          <Select<IVehicleAttributes>
             selectChange={handleInputChange}
             value={vehicle?.model}
             name="model"
             url={`https://parallelum.com.br/fipe/api/v1/carros/marcas/${vehicle.brand}/modelos`}
+            disabled={!vehicle.brand}
           ></Select>
           <label htmlFor="year">Ano</label>
-          <input
-            type="text"
-            name="year"
-            id="year"
+          <Select<IVehicleAttributes>
+            selectChange={handleInputChange}
             value={vehicle?.year}
-            onChange={handleInputChange}
-            required
-          />
-          <label htmlFor="version">Versão</label>
-          <input
-            type="text"
-            name="version"
-            id="version"
-            value={vehicle?.version}
-            onChange={handleInputChange}
-            required
-          />
+            name="year"
+            url={`https://parallelum.com.br/fipe/api/v1/carros/marcas/${vehicle.brand}/modelos/${vehicle.model}/anos`}
+            disabled={!vehicle.model || !vehicle.brand}
+          ></Select>
           <NavLink to="/">
             <ArrowFatLeft /> voltar
           </NavLink>
