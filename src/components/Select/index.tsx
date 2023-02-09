@@ -1,20 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-
-type selectOptionProps = {
-  codigo: string;
-  nome: string;
-};
-
-export interface ISelectProps<T> {
-  selectChange: (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => void;
-  value: string;
-  url: string;
-  name: string;
-  disabled?: boolean;
-}
+import { selectOptionProps } from "../../@types/selectOptionProps";
+import { ISelectProps } from "../../@types/ISelectProps";
 
 export const Select = <T extends selectOptionProps>({
   selectChange,

@@ -1,12 +1,12 @@
 import { ArrowFatLeft } from "phosphor-react";
 import { VehicleInfo } from "./styles";
-import { IVehicle } from "../../interfaces/IVehicle";
+import { IVehicle } from "../../@types/IVehicle";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { Select } from "../../components/Select";
-import { IVehicleAttributes } from "../Home";
+import { IVehicleAttributes } from "../../@types/IVehicleAttributes";
 
 export const Vehicle = () => {
   const [vehicle, setVehicle] = useState<IVehicle>({} as IVehicle);

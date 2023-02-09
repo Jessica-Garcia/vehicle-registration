@@ -1,14 +1,6 @@
 {
   "vehicles": [
     {
-      "id": " 1",
-      "brand": "Porsche",
-      "model": "Cayenne",
-      "version": "SUV",
-      "year": 2022,
-      "licensePlate": "abc12261"
-    },
-    {
       "id": " 2",
       "brand": "BMW",
       "model": "X1",
@@ -63,94 +55,6 @@
       "version": "SUV",
       "year": 2022,
       "licensePlate": "123453"
-    },
-    {
-      "id": " 9",
-      "brand": "Porsche",
-      "model": "Panamera",
-      "version": "Sedan",
-      "year": 2021,
-      "licensePlate": "4568794"
-    },
-    {
-      "id": "10",
-      "brand": "BMW",
-      "model": "X5",
-      "version": "SUV",
-      "year": 2023,
-      "licensePlate": "5821475"
-    },
-    {
-      "id": "11",
-      "brand": "Hyunday",
-      "model": "Creta",
-      "version": "SUV",
-      "year": 2020,
-      "licensePlate": "1587306"
-    },
-    {
-      "id": "12",
-      "brand": "Nissam",
-      "model": "Frontier",
-      "version": "SUV",
-      "year": 2020,
-      "licensePlate": "1010097"
-    },
-    {
-      "id": "13",
-      "brand": "Porsche",
-      "model": "Cayenne",
-      "version": "SUV",
-      "year": 2022,
-      "licensePlate": "ab2c12268"
-    },
-    {
-      "id": "14",
-      "brand": "BMW",
-      "model": "X1",
-      "version": "SUV",
-      "year": 2022,
-      "licensePlate": "123459"
-    },
-    {
-      "licensePlate": "12222",
-      "brand": "nnanan",
-      "model": "hahahah",
-      "year": "jajajja",
-      "version": "kkak",
-      "id": "3jzfL9J"
-    },
-    {
-      "licensePlate": "11111",
-      "brand": "hahah",
-      "model": "2000",
-      "year": "hahah",
-      "version": "jajajaj",
-      "id": "QbMumM0"
-    },
-    {
-      "licensePlate": "258",
-      "brand": "hahahah",
-      "model": "2000",
-      "year": "jajajja",
-      "version": "kkak",
-      "id": "-7O5ERJ"
-    },
-    {
-      "licensePlate": "ddd",
-      "brand": "dddd",
-      "model": "dddd",
-      "year": "ddd",
-      "version": "ddd",
-      "id": "vvkYgdh"
-    },
-    {
-      "licensePlate": "258",
-      "brand": "nnanan",
-      "model": "nannaan",
-      "year": "gagagag",
-      "version": "hahahah",
-      "id": "hxy-CtS"
     }
   ]
 }

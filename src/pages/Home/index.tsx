@@ -1,22 +1,27 @@
-import { Pencil, Eye, Trash, Funnel, PlusCircle } from "phosphor-react";
+import {
+  Pencil,
+  Eye,
+  Trash,
+  Funnel,
+  PlusCircle,
+  CaretLeft,
+  CaretRight,
+} from "phosphor-react";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { IVehicle } from "../../interfaces/IVehicle";
+import { IVehicle } from "../../@types/IVehicle";
+import { IVehicleAttributes } from "../../@types/IVehicleAttributes";
 import {
   AddButton,
+  ButtonAndPagination,
   ButtonsContainer,
-  Content,
   HomeContainer,
-  TbodyContainer,
-  TheadContainer,
+  Pagination,
   Title,
+  VehicleTable,
 } from "./styles";
 import { NavLink } from "react-router-dom";
-
-export interface IVehicleAttributes {
-  nome: string;
-  codigo: string;
-}
+import { SearchForm } from "./components/SearchForm";
 
 export const Home = () => {
   const [vehicleList, setVehicleList] = useState<IVehicle[]>();
@@ -67,57 +72,68 @@ export const Home = () => {
 
   return (
     <HomeContainer>
+      <SearchForm />
       <Title>
         <h2>Veículos cadastrados</h2>
         <button>
           <Funnel size={22} />
         </button>
       </Title>
-      <Content>
-        <table>
-          <TheadContainer>
-            <tr>
-              <th>Placa</th>
-              <th>Marca</th>
-              <th>Modelo</th>
-              <th>Ano</th>
-              <th>Ações</th>
-            </tr>
-          </TheadContainer>
-          <TbodyContainer>
-            {vehicleList &&
-              vehicleList.map((vehicle) => {
-                return (
-                  <tr key={vehicle.id}>
-                    <td>{vehicle.licensePlate}</td>
-                    <td>{vehicle.brand}</td>
-                    <td>{vehicle.model}</td>
-                    <td>{vehicle.year}</td>
-                    <td>
-                      <ButtonsContainer>
-                        <NavLink to={`/vehicle/view/${vehicle.id}`}>
-                          <Eye weight="bold" />
-                        </NavLink>
-                        <NavLink to={`/vehicle/edit/${vehicle.id}`}>
-                          <Pencil weight="bold" />
-                        </NavLink>
-                        <NavLink
-                          to="/"
-                          onClick={() => handleDeleteVehicle(vehicle.id)}
-                        >
-                          <Trash weight="bold" />
-                        </NavLink>
-                      </ButtonsContainer>
-                    </td>
-                  </tr>
-                );
-              })}
-          </TbodyContainer>
-        </table>
-      </Content>
-      <AddButton href="/vehicle/add">
-        <PlusCircle weight="bold" size={20} /> Novo veículo
-      </AddButton>
+
+      <VehicleTable>
+        <thead>
+          <tr>
+            <th>Placa</th>
+            <th>Marca</th>
+            <th>Modelo</th>
+            <th>Ano</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          {vehicleList &&
+            vehicleList.map((vehicle) => {
+              return (
+                <tr key={vehicle.id}>
+                  <td>{vehicle.licensePlate}</td>
+                  <td>{vehicle.brand}</td>
+                  <td>{vehicle.model}</td>
+                  <td>{vehicle.year}</td>
+                  <td>
+                    <ButtonsContainer>
+                      <NavLink to={`/vehicle/view/${vehicle.id}`}>
+                        <Eye weight="bold" size={20} color="#49c4f2" />
+                      </NavLink>
+                      <NavLink to={`/vehicle/edit/${vehicle.id}`}>
+                        <Pencil weight="bold" size={20} color="#E6ED17" />
+                      </NavLink>
+                      <NavLink
+                        to="/"
+                        onClick={() => handleDeleteVehicle(vehicle.id)}
+                      >
+                        <Trash weight="bold" size={20} color="#AB222E" />
+                      </NavLink>
+                    </ButtonsContainer>
+                  </td>
+                </tr>
+              );
+            })}
+        </tbody>
+      </VehicleTable>
+      <ButtonAndPagination>
+        <Pagination>
+          <CaretLeft weight="bold" />
+          <button>1</button>
+          <button>2</button>
+          <button>3</button>
+          <CaretRight weight="bold" />
+        </Pagination>
+        <AddButton>
+          <a href="/vehicle/add">
+            <PlusCircle weight="bold" size={20} /> Novo veículo
+          </a>
+        </AddButton>
+      </ButtonAndPagination>
     </HomeContainer>
   );
 };
