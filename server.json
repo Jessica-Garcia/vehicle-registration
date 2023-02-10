@@ -1,0 +1,18 @@
+{
+  "vehicles": [
+    {
+      "id": "a0f1364f-1b61-4278-a513-361b2dfb0851",
+      "model": "4",
+      "year": "2007-3",
+      "licensePlate": "12222",
+      "brand": "2"
+    },
+    {
+      "id": "adf2fe9c-511e-443b-937d-1e885ed8a28b",
+      "model": "6751",
+      "year": "2014-1",
+      "licensePlate": "abc123",
+      "brand": "28"
+    }
+  ]
+}
