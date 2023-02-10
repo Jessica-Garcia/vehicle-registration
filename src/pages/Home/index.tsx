@@ -13,7 +13,6 @@ import { IVehicle } from "../../@types/IVehicle";
 import { IVehicleAttributes } from "../../@types/IVehicleAttributes";
 import {
   AddButton,
-  ButtonAndPagination,
   ButtonsContainer,
   HomeContainer,
   Pagination,
@@ -42,13 +41,13 @@ export const Home = () => {
     }
   };
 
-  const getBrands = async () => {
+  /* const getBrands = async () => {
     const { data } = await axios.get<IVehicleAttributes[] | undefined>(
       "https://parallelum.com.br/fipe/api/v1/carros/marcas"
     );
 
     console.log(data);
-  };
+  }; */
 
   const getVehicles = async () => {
     const { data } = await axios.get<IVehicle[] | undefined>(
@@ -67,7 +66,7 @@ export const Home = () => {
       }
     };
     showVehicles();
-    getBrands();
+    // getBrands();
   }, []);
 
   return (
@@ -75,9 +74,11 @@ export const Home = () => {
       <SearchForm />
       <Title>
         <h2>Veículos cadastrados</h2>
-        <button>
-          <Funnel size={22} />
-        </button>
+        <AddButton>
+          <a href="/vehicle/add">
+            <PlusCircle weight="bold" size={20} /> Novo
+          </a>
+        </AddButton>
       </Title>
 
       <VehicleTable>
@@ -120,20 +121,20 @@ export const Home = () => {
             })}
         </tbody>
       </VehicleTable>
-      <ButtonAndPagination>
+
+      {vehicleList && vehicleList?.length > 5 && (
         <Pagination>
-          <CaretLeft weight="bold" />
+          <span>
+            <CaretLeft weight="bold" />
+          </span>
           <button>1</button>
           <button>2</button>
           <button>3</button>
-          <CaretRight weight="bold" />
+          <span>
+            <CaretRight weight="bold" />
+          </span>
         </Pagination>
-        <AddButton>
-          <a href="/vehicle/add">
-            <PlusCircle weight="bold" size={20} /> Novo veículo
-          </a>
-        </AddButton>
-      </ButtonAndPagination>
+      )}
     </HomeContainer>
   );
 };

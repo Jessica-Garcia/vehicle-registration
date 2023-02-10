@@ -10,32 +10,14 @@ export const HomeContainer = styled.main`
 `;
 
 export const Title = styled.div`
-  align-self: center;
-  margin: 2rem 0;
+  margin: 4rem 0 2rem;
   display: flex;
+  align-items: center;
+  justify-content: space-between;
   gap: 1rem;
 
   h2 {
-    color: ${(props) => props.theme["blue-500"]};
-  }
-
-  button {
-    background: ${(props) => props.theme["blue-400"]};
-
-    color: ${(props) => props.theme.white};
-    font-weight: bold;
-    height: 2rem;
-    width: 2rem;
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    &:hover {
-      cursor: pointer;
-      background: ${(props) => props.theme["blue-600"]};
-
-      transition: background 0.3s;
-    }
+    color: ${(props) => props.theme["blue-300"]};
   }
 `;
 
@@ -48,7 +30,7 @@ export const VehicleTable = styled.table`
 
   th {
     padding: 1rem 2rem;
-    background: ${(props) => props.theme["blue-600"]};
+    background: ${(props) => props.theme["blue-500"]};
 
     &:first-child {
       border-top-left-radius: 6px;
@@ -76,64 +58,39 @@ export const VehicleTable = styled.table`
   }
 `;
 
-export const ButtonAndPagination = styled.section`
-  display: flex;
-
-  justify-content: flex-end;
-  border: solid red 3px;
-  align-items: center;
-  gap: 250px;
-  span {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    width: 100%;
-    justify-content: center;
-    height: 35px;
-    border: solid blue 3px;
-
-    button {
-      width: 2rem;
-      height: 2rem;
-      border-radius: 6px;
-    }
-  }
-
-  /* a {
-    justify-self: flex-end;
-    text-decoration: none;
-    border-radius: 6px;
-    height: 50px;
-    border: 0;
-    background: ${(props) => props.theme["blue-500"]};
-    color: ${(props) => props.theme.white};
-    padding: 0 1.25rem;
-    font-weight: bold;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    //margin-bottom: 1rem;
-    &:hover {
-      cursor: pointer;
-      background: ${(props) => props.theme["blue-600"]};
-      transition: background 0.3s;
-    }
-  } */
-`;
-
 export const Pagination = styled.div`
   display: flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 0.3rem;
   justify-content: center;
   height: 35px;
-  border: solid blue 3px;
   align-self: center;
+  margin-top: 3rem;
+  position: relative;
+  bottom: 1.5rem;
+
   button {
-    width: 2rem;
-    height: 2rem;
+    width: 1.7rem;
+    height: 1.7rem;
     border-radius: 6px;
+    color: ${(props) => props.theme.white};
+    background-color: ${(props) => props.theme["gray-600"]};
+    border: 0;
+    cursor: pointer;
+
+    &:hover {
+      background: ${(props) => props.theme["gray-400"]};
+
+      transition: background 0.3s;
+    }
+  }
+  span {
+    display: flex;
+    align-items: center;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 `;
 
@@ -141,15 +98,14 @@ export const AddButton = styled.a`
   display: flex;
   border-radius: 6px;
   height: 50px;
+  width: 120px;
+  justify-content: center;
   border: 0;
   background: ${(props) => props.theme["blue-500"]};
   color: ${(props) => props.theme.white};
   padding: 0 1.25rem;
   font-weight: bold;
   cursor: pointer;
-  align-self: flex-end;
-
-  //margin-bottom: 1rem;
 
   a {
     text-decoration: none;

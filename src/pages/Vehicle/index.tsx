@@ -101,16 +101,18 @@ export const Vehicle = () => {
             id="licensePlate"
             value={vehicle?.licensePlate}
             onChange={handleInputChange}
+            placeholder="Informe a placa"
             required
           />
-          <label htmlFor="brand">Marca</label>
 
+          <label htmlFor="brand">Marca</label>
           <Select<IVehicleAttributes>
             selectChange={handleInputChange}
             value={vehicle?.brand}
             name="brand"
             url={"https://parallelum.com.br/fipe/api/v1/carros/marcas"}
           ></Select>
+
           <label htmlFor="model">Modelo</label>
           <Select<IVehicleAttributes>
             selectChange={handleInputChange}
@@ -119,6 +121,7 @@ export const Vehicle = () => {
             url={`https://parallelum.com.br/fipe/api/v1/carros/marcas/${vehicle.brand}/modelos`}
             disabled={!vehicle.brand}
           ></Select>
+
           <label htmlFor="year">Ano</label>
           <Select<IVehicleAttributes>
             selectChange={handleInputChange}
@@ -127,10 +130,11 @@ export const Vehicle = () => {
             url={`https://parallelum.com.br/fipe/api/v1/carros/marcas/${vehicle.brand}/modelos/${vehicle.model}/anos`}
             disabled={!vehicle.model || !vehicle.brand}
           ></Select>
+
+          <button type="submit">Salvar</button>
           <NavLink to="/">
             <ArrowFatLeft /> voltar
           </NavLink>
-          <button>Salvar</button>
         </form>
       )}
     </VehicleInfo>

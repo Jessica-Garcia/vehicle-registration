@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { selectOptionProps } from "../../@types/selectOptionProps";
 import { ISelectProps } from "../../@types/ISelectProps";
+import { SelectContainer } from "./style";
 
 export const Select = <T extends selectOptionProps>({
   selectChange,
@@ -34,7 +35,7 @@ export const Select = <T extends selectOptionProps>({
   }, [disabled, url]);
 
   return (
-    <select
+    <SelectContainer
       disabled={disabled}
       name={name}
       id=""
@@ -43,7 +44,7 @@ export const Select = <T extends selectOptionProps>({
       defaultValue=""
     >
       <option value="" disabled>
-        Selecione um valor
+        Selecione
       </option>
       {list &&
         list.length &&
@@ -54,6 +55,6 @@ export const Select = <T extends selectOptionProps>({
             </option>
           );
         })}
-    </select>
+    </SelectContainer>
   );
 };

@@ -6,7 +6,7 @@ export const SearchForm = () => {
     <SearchFormContainer>
       <input type="text" placeholder="Busque por veículos" />
       <button type="submit">
-        <MagnifyingGlass size={20} />
+        <MagnifyingGlass size={20} weight="bold" />
         Buscar
       </button>
     </SearchFormContainer>
