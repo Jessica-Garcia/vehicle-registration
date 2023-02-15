@@ -1,4 +1,4 @@
 export interface IVehicleAttributes {
-  nome: string;
-  codigo: string;
+  name: string;
+  code: string;
 }

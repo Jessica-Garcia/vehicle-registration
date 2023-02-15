@@ -1,4 +1,4 @@
-export type selectOptionProps = {
+export type SelectOptionProps = {
   codigo: string;
   nome: string;
 };

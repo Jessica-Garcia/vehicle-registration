@@ -10,7 +10,6 @@ import {
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { IVehicle } from "../../@types/IVehicle";
-import { IVehicleAttributes } from "../../@types/IVehicleAttributes";
 import {
   AddButton,
   ButtonsContainer,
@@ -41,14 +40,6 @@ export const Home = () => {
     }
   };
 
-  /* const getBrands = async () => {
-    const { data } = await axios.get<IVehicleAttributes[] | undefined>(
-      "https://parallelum.com.br/fipe/api/v1/carros/marcas"
-    );
-
-    console.log(data);
-  }; */
-
   const getVehicles = async () => {
     const { data } = await axios.get<IVehicle[] | undefined>(
       "http://localhost:3000/vehicles"
@@ -66,7 +57,6 @@ export const Home = () => {
       }
     };
     showVehicles();
-    // getBrands();
   }, []);
 
   return (
