@@ -1,0 +1,46 @@
+{
+  "vehicles": [
+    {
+      "id": "a0f1364f-1b61-4278-a513-361b2dfb0851",
+      "model": "4",
+      "year": "2007-3",
+      "licensePlate": "12222",
+      "brand": "2"
+    },
+    {
+      "id": "adf2fe9c-511e-443b-937d-1e885ed8a28b",
+      "model": "6751",
+      "year": "2014-1",
+      "licensePlate": "abc123",
+      "brand": "28"
+    },
+    {
+      "id": "4523ec86-a471-4c31-9e84-a5ddc96f60ec",
+      "model": "260",
+      "year": "2020-1",
+      "licensePlate": "12354",
+      "brand": "11"
+    },
+    {
+      "id": "427bd18f-90de-47da-8215-ca787b05e1c2",
+      "licensePlate": "hhhh",
+      "brand": "7",
+      "year": "2018-1",
+      "model": "5188"
+    },
+    {
+      "id": "1c35ff06-2850-4f07-81e6-df57b248ce1c",
+      "licensePlate": "rrrr",
+      "brand": "11",
+      "year": "1992-3",
+      "model": "8562"
+    },
+    {
+      "id": "1300d975-aaf9-40ee-8d80-3f920f133469",
+      "licensePlate": "bbbb",
+      "brand": "6",
+      "year": "1993-1",
+      "model": "43"
+    }
+  ]
+}

@@ -1,16 +1,16 @@
-import { HeaderContainer, ContentContainer, BorderStyle } from "./styles";
+import { HeaderContainer, HeaderContent } from "./styles";
 
 export const Header = () => {
   return (
     <HeaderContainer>
-      <ContentContainer>
+      <HeaderContent>
         <div>
-          <a href="">L</a>
-          <span>LOGO</span>
+          <a href="/">
+            <span>LOGO</span>
+          </a>
         </div>
         <button>Sign Up</button>
-      </ContentContainer>
-      <BorderStyle></BorderStyle>
+      </HeaderContent>
     </HeaderContainer>
   );
 };
