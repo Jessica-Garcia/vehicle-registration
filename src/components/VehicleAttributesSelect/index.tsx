@@ -11,14 +11,13 @@ export const VehicleAttributesSelect = ({
   name,
   disabled = false,
 }: IVehicleAttributesSelectProps) => {
-  const [attributesList, setAttributesList] = useState<IVehicleAttributes[]>(
-    []
-  );
+  const [vehicleAttributes, setVehicleAttributes] = useState<
+    IVehicleAttributes[]
+  >([]);
 
   const getList = useCallback(async () => {
     const { data } = await axios.get<IVehicleAttributes[] | undefined>(url);
-    console.log(data);
-    data && setAttributesList(data);
+    data && setVehicleAttributes(data);
   }, [url]);
 
   useEffect(() => {
@@ -38,9 +37,9 @@ export const VehicleAttributesSelect = ({
         Selecione
       </option>
 
-      {attributesList &&
-        attributesList.length &&
-        attributesList.map((attribute) => {
+      {vehicleAttributes &&
+        vehicleAttributes.length &&
+        vehicleAttributes.map((attribute) => {
           return (
             <option key={attribute.code} value={attribute.code}>
               {attribute.name}
