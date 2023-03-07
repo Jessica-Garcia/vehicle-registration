@@ -41,6 +41,20 @@
       "brand": "6",
       "year": "1993-1",
       "model": "43"
+    },
+    {
+      "id": "7130f973-336c-4ca3-bc2c-80e1bc765a02",
+      "licensePlate": "2000",
+      "brand": "7",
+      "year": "2014-1",
+      "model": "6151"
+    },
+    {
+      "id": "477646ff-9787-4753-90aa-6aa0fd37aa00",
+      "year": "2015-1",
+      "licensePlate": "2222",
+      "brand": "6",
+      "model": "6082"
     }
   ]
 }
