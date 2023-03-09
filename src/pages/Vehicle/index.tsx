@@ -17,6 +17,11 @@ export const Vehicle = () => {
   ) => {
     setVehicle((currentValue) => ({
       ...currentValue,
+      year: e.target.name === "brand" ? "" : currentValue.year,
+      model:
+        e.target.name === "brand" || e.target.name === "year"
+          ? ""
+          : currentValue.year,
       [e.target.name]: e.target.value,
     }));
   };
@@ -84,7 +89,7 @@ export const Vehicle = () => {
             type="text"
             name="licensePlate"
             id="licensePlate"
-            value={vehicle?.licensePlate}
+            value={vehicle?.licensePlate || ""}
             onChange={handleInputChange}
             placeholder="Informe a placa"
             required
@@ -104,7 +109,11 @@ export const Vehicle = () => {
             value={vehicle?.year}
             name="year"
             selectChange={handleInputChange}
-            url={`https://parallelum.com.br/fipe/api/v2/cars/brands/${vehicle.brand}/years`}
+            url={
+              vehicle.brand
+                ? `https://parallelum.com.br/fipe/api/v2/cars/brands/${vehicle.brand}/years`
+                : ""
+            }
             disabled={!vehicle.brand}
           />
 
@@ -114,8 +123,12 @@ export const Vehicle = () => {
             value={vehicle?.model}
             name="model"
             selectChange={handleInputChange}
-            disabled={!vehicle.brand && !vehicle.year}
-            url={`https://parallelum.com.br/fipe/api/v2/cars/brands/${vehicle.brand}/years/${vehicle.year}/models`}
+            disabled={!vehicle.brand || !vehicle.year}
+            url={
+              vehicle.year
+                ? `https://parallelum.com.br/fipe/api/v2/cars/brands/${vehicle.brand}/years/${vehicle.year}/models`
+                : ""
+            }
           />
 
           <button type="submit">Salvar</button>

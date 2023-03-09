@@ -20,6 +20,7 @@ import {
 } from "./styles";
 import { NavLink } from "react-router-dom";
 import { SearchForm } from "./components/SearchForm";
+import { TableItem } from "../../components/TableItem";
 
 export const Home = () => {
   const [vehicleList, setVehicleList] = useState<IVehicle[]>();
@@ -85,28 +86,11 @@ export const Home = () => {
           {vehicleList &&
             vehicleList.map((vehicle) => {
               return (
-                <tr key={vehicle.id}>
-                  <td>{vehicle.licensePlate}</td>
-                  <td>{vehicle.brand}</td>
-                  <td>{vehicle.model}</td>
-                  <td>{vehicle.year}</td>
-                  <td>
-                    <ButtonsContainer>
-                      <NavLink to={`/vehicle/view/${vehicle.id}`}>
-                        <Eye weight="bold" size={20} color="#49c4f2" />
-                      </NavLink>
-                      <NavLink to={`/vehicle/edit/${vehicle.id}`}>
-                        <Pencil weight="bold" size={20} color="#E6ED17" />
-                      </NavLink>
-                      <NavLink
-                        to="/"
-                        onClick={() => handleDeleteVehicle(vehicle.id)}
-                      >
-                        <Trash weight="bold" size={20} color="#AB222E" />
-                      </NavLink>
-                    </ButtonsContainer>
-                  </td>
-                </tr>
+                <TableItem
+                  key={vehicle.id}
+                  vehicle={vehicle}
+                  onDeleteVehicle={handleDeleteVehicle}
+                />
               );
             })}
         </tbody>

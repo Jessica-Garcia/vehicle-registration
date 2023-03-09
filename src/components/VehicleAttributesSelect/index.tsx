@@ -11,23 +11,31 @@ export const VehicleAttributesSelect = ({
   name,
   disabled = false,
 }: IVehicleAttributesSelectProps) => {
-  const [attributesList, setAttributesList] = useState<IVehicleAttributes[]>(
-    []
-  );
+  const [vehicleAttributes, setVehicleAttributes] = useState<
+    IVehicleAttributes[]
+  >([]);
+
+  const [loading, setLoadind] = useState(false);
 
   const getList = useCallback(async () => {
-    const { data } = await axios.get<IVehicleAttributes[] | undefined>(url);
-    console.log(data);
-    data && setAttributesList(data);
+    setVehicleAttributes([]);
+    setLoadind(true);
+    try {
+      const { data } = await axios.get<IVehicleAttributes[] | undefined>(url);
+      data && setVehicleAttributes(data);
+    } catch (error) {
+      console.error(error);
+    }
+    setLoadind(false);
   }, [url]);
 
   useEffect(() => {
-    getList();
-  }, [getList]);
+    url && getList();
+  }, [getList, url]);
 
   return (
     <SelectContainer
-      disabled={disabled}
+      disabled={disabled || loading}
       name={name}
       id=""
       value={value}
@@ -35,12 +43,12 @@ export const VehicleAttributesSelect = ({
       defaultValue=""
     >
       <option value="" disabled>
-        Selecione
+        {loading ? "Carregando" : "Selecione"}
       </option>
 
-      {attributesList &&
-        attributesList.length &&
-        attributesList.map((attribute) => {
+      {vehicleAttributes &&
+        vehicleAttributes.length &&
+        vehicleAttributes.map((attribute) => {
           return (
             <option key={attribute.code} value={attribute.code}>
               {attribute.name}
