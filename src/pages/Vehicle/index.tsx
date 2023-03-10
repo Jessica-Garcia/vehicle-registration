@@ -89,7 +89,7 @@ export const Vehicle = () => {
             type="text"
             name="licensePlate"
             id="licensePlate"
-            value={vehicle?.licensePlate || ""}
+            value={vehicle?.licensePlate || ""} /* ??????? */
             onChange={handleInputChange}
             placeholder="Informe a placa"
             required

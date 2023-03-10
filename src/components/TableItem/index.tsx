@@ -14,26 +14,26 @@ interface ITableItem {
 export const TableItem = ({ vehicle, onDeleteVehicle }: ITableItem) => {
   const [vehicleItem, setVehicleItem] = useState(vehicle);
 
-  const getInformation = useCallback(async () => {
+  const getInformation = useCallback(async (vehicle: IVehicle) => {
     const brands = await axios.get<IVehicleAttributes[]>(
       `https://parallelum.com.br/fipe/api/v2/cars/brands`
-    );
+    ); // [{code: 1, name: bmw}]
     const years = await axios.get<IVehicleAttributes[]>(
       `https://parallelum.com.br/fipe/api/v2/cars/brands/${vehicle.brand}/years`
-    );
+    ); // [{code: 1, name: 2023}]
     const models = await axios.get<IVehicleAttributes[]>(
       `https://parallelum.com.br/fipe/api/v2/cars/brands/${vehicle.brand}/years/${vehicle.year}/models`
-    );
+    ); // [{code: 1, name: x5}]
 
-    const brand = brands.find((b) => vehicle.brand === b.code).name;
-    const year = years.find((y) => vehicle.year === y.code).name;
-    const model = models.find((m) => vehicle.model === m.code).name;
+    const brand = brands.data.find((b) => vehicle.brand === b.code)?.name;
+    const year = years.data.find((y) => vehicle.year === y.code)?.name;
+    const model = models.data.find((m) => vehicle.model === m.code)?.name;
     setVehicleItem((current) => ({ ...current, brand, year, model }));
-  }, [vehicle.brand, vehicle.year, vehicle.model]);
+  }, []);
 
   useEffect(() => {
-    getInformation();
-  }, [getInformation]);
+    getInformation(vehicle);
+  }, [getInformation, vehicle]);
 
   return (
     <tr key={vehicleItem.id}>

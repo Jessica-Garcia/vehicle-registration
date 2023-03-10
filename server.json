@@ -9,17 +9,10 @@
     },
     {
       "id": "adf2fe9c-511e-443b-937d-1e885ed8a28b",
-      "model": "6751",
-      "year": "2014-1",
+      "model": "7502",
+      "year": "2016-1",
       "licensePlate": "abc123",
-      "brand": "28"
-    },
-    {
-      "id": "4523ec86-a471-4c31-9e84-a5ddc96f60ec",
-      "model": "260",
-      "year": "2020-1",
-      "licensePlate": "12354",
-      "brand": "11"
+      "brand": "20"
     },
     {
       "id": "427bd18f-90de-47da-8215-ca787b05e1c2",
@@ -27,20 +20,6 @@
       "brand": "7",
       "year": "2018-1",
       "model": "5188"
-    },
-    {
-      "id": "1c35ff06-2850-4f07-81e6-df57b248ce1c",
-      "licensePlate": "rrrr",
-      "brand": "11",
-      "year": "1992-3",
-      "model": "8562"
-    },
-    {
-      "id": "1300d975-aaf9-40ee-8d80-3f920f133469",
-      "licensePlate": "bbbb",
-      "brand": "6",
-      "year": "1993-1",
-      "model": "43"
     },
     {
       "id": "7130f973-336c-4ca3-bc2c-80e1bc765a02",
@@ -55,6 +34,13 @@
       "licensePlate": "2222",
       "brand": "6",
       "model": "6082"
+    },
+    {
+      "id": "90147c8a-a72a-4592-8462-bd4d1f39f247",
+      "year": "2016-3",
+      "model": "7762",
+      "licensePlate": "7000",
+      "brand": "29"
     }
   ]
 }

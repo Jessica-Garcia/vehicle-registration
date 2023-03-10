@@ -1,24 +1,14 @@
-import {
-  Pencil,
-  Eye,
-  Trash,
-  Funnel,
-  PlusCircle,
-  CaretLeft,
-  CaretRight,
-} from "phosphor-react";
+import { PlusCircle, CaretLeft, CaretRight } from "phosphor-react";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { IVehicle } from "../../@types/IVehicle";
 import {
   AddButton,
-  ButtonsContainer,
   HomeContainer,
   Pagination,
   Title,
   VehicleTable,
 } from "./styles";
-import { NavLink } from "react-router-dom";
 import { SearchForm } from "./components/SearchForm";
 import { TableItem } from "../../components/TableItem";
 
