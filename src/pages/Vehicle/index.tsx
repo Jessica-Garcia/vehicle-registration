@@ -6,6 +6,7 @@ import axios from "axios";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { VehicleAttributesSelect } from "../../components/VehicleAttributesSelect";
+import { api } from "../../lib/axios";
 
 export const Vehicle = () => {
   const [vehicle, setVehicle] = useState<IVehicle>({} as IVehicle);
@@ -27,11 +28,11 @@ export const Vehicle = () => {
   };
 
   const editVehicle = async () => {
-    await axios.put<IVehicle>(`http://localhost:3000/vehicles/${id}`, vehicle);
+    await api.put<IVehicle>(`vehicles/${id}`, vehicle);
   };
 
   const addVehicle = async () => {
-    await axios.post<IVehicle>("http://localhost:3000/vehicles", {
+    await api.post<IVehicle>("vehicles", {
       id: uuidv4(),
       ...vehicle,
     });
@@ -57,9 +58,7 @@ export const Vehicle = () => {
     const getVehicle = async () => {
       try {
         if (id) {
-          const { data } = await axios.get<IVehicle>(
-            `http://localhost:3000/vehicles/${id}`
-          );
+          const { data } = await api.get<IVehicle>(`vehicles/${id}`);
 
           data && setVehicle(data);
         }
