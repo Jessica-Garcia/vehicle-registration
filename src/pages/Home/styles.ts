@@ -94,12 +94,13 @@ export const Pagination = styled.div`
   }
 `;
 
-export const AddButton = styled.a`
+export const AddButton = styled.button`
   display: flex;
   border-radius: 6px;
   height: 50px;
   width: 120px;
   justify-content: center;
+  align-items: center;
   border: 0;
   background: ${(props) => props.theme["blue-500"]};
   color: ${(props) => props.theme.white};

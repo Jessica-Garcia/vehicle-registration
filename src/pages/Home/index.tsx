@@ -1,6 +1,6 @@
 import { PlusCircle, CaretLeft, CaretRight } from "phosphor-react";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useCallback, useEffect, useState } from "react";
+import { api } from "../../lib/axios";
 import { IVehicle } from "../../@types/IVehicle";
 import {
   AddButton,
@@ -16,7 +16,7 @@ export const Home = () => {
   const [vehicleList, setVehicleList] = useState<IVehicle[]>();
 
   const deleteVehicle = async (id: string | undefined) => {
-    await axios.delete<IVehicle>(`http://localhost:3000/vehicles/${id}`);
+    await api.delete<IVehicle>(`vehicles/${id}`);
     const newVehicleList = vehicleList?.filter((vehicle) => {
       return vehicle.id !== id;
     });
@@ -31,28 +31,23 @@ export const Home = () => {
     }
   };
 
-  const getVehicles = async () => {
-    const { data } = await axios.get<IVehicle[] | undefined>(
-      "http://localhost:3000/vehicles"
-    );
+  const getVehicles = useCallback(async (query?: string) => {
+    const { data } = await api.get<IVehicle[]>("vehicles", {
+      params: {
+        q: query,
+      },
+    });
 
     data && setVehicleList(data);
-  };
+  }, []);
 
   useEffect(() => {
-    const showVehicles = () => {
-      try {
-        getVehicles();
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    showVehicles();
-  }, []);
+    getVehicles();
+  }, [getVehicles]);
 
   return (
     <HomeContainer>
-      <SearchForm />
+      <SearchForm onGetVehicles={getVehicles} />
       <Title>
         <h2>Veículos cadastrados</h2>
         <AddButton>
