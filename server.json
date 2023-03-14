@@ -1,53 +1,54 @@
 {
   "vehicles": [
     {
-      "id": "a0f1364f-1b61-4278-a513-361b2dfb0851",
-      "model": "4",
-      "year": "2007-3",
-      "licensePlate": "12222",
-      "brand": "2"
+      "id": "28ec00ca-9a7b-45d6-ab11-ca7ff634449b",
+      "licensePlate": "151515",
+      "yearId": "2022-1",
+      "year": "2022 Gasolina",
+      "modelId": "9565",
+      "model": "X6 M Competition 4.4 V8 BI-TB 625CV Aut.",
+      "brandId": "7",
+      "brand": "BMW"
     },
     {
-      "id": "adf2fe9c-511e-443b-937d-1e885ed8a28b",
-      "model": "7502",
-      "year": "2016-1",
-      "licensePlate": "abc123",
-      "brand": "20"
+      "id": "7e586d42-187e-47d0-b601-60c6c3dd7bbb",
+      "licensePlate": "656556656566",
+      "yearId": "2023-1",
+      "year": "2023 Gasolina",
+      "modelId": "9455",
+      "model": "COMPASS LIMITED T270 1.3 TB 4x2 Flex Aut",
+      "brandId": "29",
+      "brand": "Jeep"
     },
     {
-      "id": "427bd18f-90de-47da-8215-ca787b05e1c2",
-      "licensePlate": "hhhh",
-      "brand": "7",
-      "year": "2018-1",
-      "model": "5188"
+      "id": "3d989bdb-1ee3-413e-9deb-172ae385fcf0",
+      "licensePlate": "hhhhh",
+      "yearId": "2023-1",
+      "year": "2023 Gasolina",
+      "modelId": "9336",
+      "model": "KICKS Exclusive 1.6 16V Flex Aut.",
+      "brandId": "43",
+      "brand": "Nissan"
     },
     {
-      "id": "7130f973-336c-4ca3-bc2c-80e1bc765a02",
-      "licensePlate": "2000",
-      "brand": "7",
-      "year": "2014-1",
-      "model": "6151"
+      "id": "33022da0-0c20-45a3-beb5-02843f4ad3ed",
+      "licensePlate": "llllll",
+      "yearId": "2021-1",
+      "year": "2021 Gasolina",
+      "modelId": "8630",
+      "model": "330i M Sport 2.0 TB 16V 4p",
+      "brandId": "7",
+      "brand": "BMW"
     },
     {
-      "id": "477646ff-9787-4753-90aa-6aa0fd37aa00",
-      "year": "2015-1",
-      "licensePlate": "2222",
-      "brand": "6",
-      "model": "6082"
-    },
-    {
-      "id": "90147c8a-a72a-4592-8462-bd4d1f39f247",
-      "year": "2016-3",
-      "model": "7762",
-      "licensePlate": "7000",
-      "brand": "29"
-    },
-    {
-      "id": "076a947d-8496-46ea-9288-af8bbae311c1",
-      "year": "2022-1",
-      "model": "9929",
-      "licensePlate": "555555",
-      "brand": "58"
+      "id": "6789caff-3aa2-42dd-99a3-658f4903d93b",
+      "licensePlate": "44444",
+      "yearId": "2023-1",
+      "year": "2023 Gasolina",
+      "modelId": "10004",
+      "model": "F-Pace 2.0 R-Dynamic SE 404cv (Hibrido)",
+      "brandId": "28",
+      "brand": "Jaguar"
     }
   ]
 }

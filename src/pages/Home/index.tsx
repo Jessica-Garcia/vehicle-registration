@@ -14,6 +14,9 @@ import { TableItem } from "../../components/TableItem";
 
 export const Home = () => {
   const [vehicleList, setVehicleList] = useState<IVehicle[]>();
+  const [pages, setPages] = useState<number>(0);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [query, setQuery] = useState<string>("");
 
   const deleteVehicle = async (id: string | undefined) => {
     await api.delete<IVehicle>(`vehicles/${id}`);
@@ -31,15 +34,25 @@ export const Home = () => {
     }
   };
 
-  const getVehicles = useCallback(async (query?: string) => {
-    const { data } = await api.get<IVehicle[]>("vehicles", {
+  const getVehicles = useCallback(async () => {
+    const limit = 3;
+    const response = await api.get<IVehicle[]>("vehicles", {
       params: {
-        q: query,
+        _sort: "licensePlate",
+        brand_like: query,
+        _limit: limit,
+        _page: currentPage,
+        // q: query,
       },
     });
+    setPages(Math.ceil(response.headers["x-total-count"] / limit));
+    response.data && setVehicleList(response.data);
+  }, [currentPage, query]);
 
-    data && setVehicleList(data);
-  }, []);
+  const resetPage = (query: string) => {
+    setCurrentPage(1);
+    setQuery(query);
+  };
 
   useEffect(() => {
     getVehicles();
@@ -47,7 +60,7 @@ export const Home = () => {
 
   return (
     <HomeContainer>
-      <SearchForm onGetVehicles={getVehicles} />
+      <SearchForm onGetVehicles={resetPage} />
       <Title>
         <h2>Veículos cadastrados</h2>
         <AddButton>
@@ -81,14 +94,14 @@ export const Home = () => {
         </tbody>
       </VehicleTable>
 
-      {vehicleList && vehicleList?.length > 5 && (
+      {vehicleList && pages > 1 && (
         <Pagination>
           <span>
             <CaretLeft weight="bold" />
           </span>
-          <button>1</button>
-          <button>2</button>
-          <button>3</button>
+          <button onClick={() => setCurrentPage(1)}>1</button>
+          <button onClick={() => setCurrentPage(2)}>2</button>
+          <button onClick={() => setCurrentPage(3)}>3</button>
           <span>
             <CaretRight weight="bold" />
           </span>

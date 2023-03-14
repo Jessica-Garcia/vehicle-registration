@@ -13,16 +13,27 @@ export const Vehicle = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setVehicle((currentValue) => ({
       ...currentValue,
+      yearId: e.target.name === "brand" ? "" : currentValue.yearId,
       year: e.target.name === "brand" ? "" : currentValue.year,
+      modelId:
+        e.target.name === "brand" || e.target.name === "year"
+          ? ""
+          : currentValue.modelId,
       model:
         e.target.name === "brand" || e.target.name === "year"
           ? ""
-          : currentValue.year,
+          : currentValue.model,
+      [`${e.target.name}Id`]: e.target.value,
+      [e.target.name]: e.target.options[e.target.selectedIndex].label,
+    }));
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setVehicle((currentValue) => ({
+      ...currentValue,
       [e.target.name]: e.target.value,
     }));
   };
@@ -88,7 +99,7 @@ export const Vehicle = () => {
             type="text"
             name="licensePlate"
             id="licensePlate"
-            value={vehicle?.licensePlate || ""} /* ??????? */
+            value={vehicle?.licensePlate || ""}
             onChange={handleInputChange}
             placeholder="Informe a placa"
             required
@@ -96,21 +107,21 @@ export const Vehicle = () => {
 
           <label htmlFor="brand">Marca</label>
           <VehicleAttributesSelect
-            value={vehicle?.brand}
+            value={vehicle?.brandId}
             name="brand"
-            selectChange={handleInputChange}
+            selectChange={handleSelectChange}
             url={`https://parallelum.com.br/fipe/api/v2/cars/brands`}
             disabled={!vehicle.licensePlate}
           />
 
           <label htmlFor="year">Ano</label>
           <VehicleAttributesSelect
-            value={vehicle?.year}
+            value={vehicle?.yearId}
             name="year"
-            selectChange={handleInputChange}
+            selectChange={handleSelectChange}
             url={
               vehicle.brand
-                ? `https://parallelum.com.br/fipe/api/v2/cars/brands/${vehicle.brand}/years`
+                ? `https://parallelum.com.br/fipe/api/v2/cars/brands/${vehicle.brandId}/years`
                 : ""
             }
             disabled={!vehicle.brand}
@@ -119,13 +130,13 @@ export const Vehicle = () => {
           <label htmlFor="model">Modelo</label>
 
           <VehicleAttributesSelect
-            value={vehicle?.model}
+            value={vehicle?.modelId}
             name="model"
-            selectChange={handleInputChange}
+            selectChange={handleSelectChange}
             disabled={!vehicle.brand || !vehicle.year}
             url={
               vehicle.year
-                ? `https://parallelum.com.br/fipe/api/v2/cars/brands/${vehicle.brand}/years/${vehicle.year}/models`
+                ? `https://parallelum.com.br/fipe/api/v2/cars/brands/${vehicle.brandId}/years/${vehicle.yearId}/models`
                 : ""
             }
           />

@@ -3,6 +3,7 @@ import { SearchFormContainer } from "./styles";
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import React from "react";
 
 const searchFormSchema = z.object({
   query: z.string(),
@@ -11,7 +12,7 @@ const searchFormSchema = z.object({
 type SearchFormInputs = z.infer<typeof searchFormSchema>;
 
 interface SearchFormProps {
-  onGetVehicles: (query?: string) => Promise<void>;
+  onGetVehicles: (query: string) => void;
 }
 
 export const SearchForm = ({ onGetVehicles }: SearchFormProps) => {
@@ -25,8 +26,8 @@ export const SearchForm = ({ onGetVehicles }: SearchFormProps) => {
   });
 
   const handleSearchVehicles = async (data: SearchFormInputs) => {
-    await onGetVehicles(data.query);
-    reset();
+    onGetVehicles(data.query);
+    // reset();
   };
 
   return (

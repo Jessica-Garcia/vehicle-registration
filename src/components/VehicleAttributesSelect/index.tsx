@@ -50,7 +50,11 @@ export const VehicleAttributesSelect = ({
         vehicleAttributes.length &&
         vehicleAttributes.map((attribute) => {
           return (
-            <option key={attribute.code} value={attribute.code}>
+            <option
+              label={attribute.name}
+              key={attribute.code}
+              value={attribute.code}
+            >
               {attribute.name}
             </option>
           );
