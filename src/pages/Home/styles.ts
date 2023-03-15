@@ -9,7 +9,7 @@ export const HomeContainer = styled.main`
   padding: 0 1.5rem;
 `;
 
-export const Title = styled.div`
+export const Options = styled.div`
   margin: 4rem 0 2rem;
   display: flex;
   align-items: center;
@@ -68,38 +68,56 @@ export const Pagination = styled.div`
   margin-top: 3rem;
   position: relative;
   bottom: 1.5rem;
+`;
 
-  button {
-    width: 1.7rem;
-    height: 1.7rem;
-    border-radius: 6px;
-    color: ${(props) => props.theme.white};
-    background-color: ${(props) => props.theme["gray-600"]};
-    border: 0;
-    cursor: pointer;
+interface IsSelected {
+  isSelected: boolean;
+}
 
-    &:hover {
-      background: ${(props) => props.theme["gray-400"]};
+export const PaginationButton = styled.button<IsSelected>`
+  width: 1.7rem;
+  height: 1.7rem;
+  border-radius: 6px;
+  color: ${(props) => props.theme.white};
+  background-color: ${(props) => props.theme["gray-600"]};
+  border: 0;
+  cursor: pointer;
+  ${(props) =>
+    props.isSelected && {
+      background: props.theme["blue-600"],
+    }}
 
-      transition: background 0.3s;
-    }
-  }
-  span {
-    display: flex;
-    align-items: center;
+  &:hover {
+    background: ${(props) => props.theme["gray-400"]};
 
-    &:hover {
-      cursor: pointer;
-    }
+    transition: background 0.3s;
   }
 `;
 
-export const AddButton = styled.a`
+export const PassPagesButton = styled.button`
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  border: 0;
+  color: ${(props) => props.theme.white};
+
+  &:hover {
+    cursor: pointer;
+    color: ${(props) => props.theme["gray-300"]};
+  }
+
+  &:active {
+    font-size: 24px;
+  }
+`;
+
+export const AddButton = styled.button`
   display: flex;
   border-radius: 6px;
   height: 50px;
   width: 120px;
   justify-content: center;
+  align-items: center;
   border: 0;
   background: ${(props) => props.theme["blue-500"]};
   color: ${(props) => props.theme.white};

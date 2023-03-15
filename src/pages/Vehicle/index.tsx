@@ -6,32 +6,44 @@ import axios from "axios";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { VehicleAttributesSelect } from "../../components/VehicleAttributesSelect";
+import { api } from "../../lib/axios";
 
 export const Vehicle = () => {
   const [vehicle, setVehicle] = useState<IVehicle>({} as IVehicle);
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setVehicle((currentValue) => ({
       ...currentValue,
+      yearId: e.target.name === "brand" ? "" : currentValue.yearId,
       year: e.target.name === "brand" ? "" : currentValue.year,
+      modelId:
+        e.target.name === "brand" || e.target.name === "year"
+          ? ""
+          : currentValue.modelId,
       model:
         e.target.name === "brand" || e.target.name === "year"
           ? ""
-          : currentValue.year,
+          : currentValue.model,
+      [`${e.target.name}Id`]: e.target.value,
+      [e.target.name]: e.target.options[e.target.selectedIndex].label,
+    }));
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setVehicle((currentValue) => ({
+      ...currentValue,
       [e.target.name]: e.target.value,
     }));
   };
 
   const editVehicle = async () => {
-    await axios.put<IVehicle>(`http://localhost:3000/vehicles/${id}`, vehicle);
+    await api.put<IVehicle>(`vehicles/${id}`, vehicle);
   };
 
   const addVehicle = async () => {
-    await axios.post<IVehicle>("http://localhost:3000/vehicles", {
+    await api.post<IVehicle>("vehicles", {
       id: uuidv4(),
       ...vehicle,
     });
@@ -57,9 +69,7 @@ export const Vehicle = () => {
     const getVehicle = async () => {
       try {
         if (id) {
-          const { data } = await axios.get<IVehicle>(
-            `http://localhost:3000/vehicles/${id}`
-          );
+          const { data } = await api.get<IVehicle>(`vehicles/${id}`);
 
           data && setVehicle(data);
         }
@@ -97,21 +107,21 @@ export const Vehicle = () => {
 
           <label htmlFor="brand">Marca</label>
           <VehicleAttributesSelect
-            value={vehicle?.brand}
+            value={vehicle?.brandId}
             name="brand"
-            selectChange={handleInputChange}
+            selectChange={handleSelectChange}
             url={`https://parallelum.com.br/fipe/api/v2/cars/brands`}
             disabled={!vehicle.licensePlate}
           />
 
           <label htmlFor="year">Ano</label>
           <VehicleAttributesSelect
-            value={vehicle?.year}
+            value={vehicle?.yearId}
             name="year"
-            selectChange={handleInputChange}
+            selectChange={handleSelectChange}
             url={
               vehicle.brand
-                ? `https://parallelum.com.br/fipe/api/v2/cars/brands/${vehicle.brand}/years`
+                ? `https://parallelum.com.br/fipe/api/v2/cars/brands/${vehicle.brandId}/years`
                 : ""
             }
             disabled={!vehicle.brand}
@@ -120,13 +130,13 @@ export const Vehicle = () => {
           <label htmlFor="model">Modelo</label>
 
           <VehicleAttributesSelect
-            value={vehicle?.model}
+            value={vehicle?.modelId}
             name="model"
-            selectChange={handleInputChange}
+            selectChange={handleSelectChange}
             disabled={!vehicle.brand || !vehicle.year}
             url={
               vehicle.year
-                ? `https://parallelum.com.br/fipe/api/v2/cars/brands/${vehicle.brand}/years/${vehicle.year}/models`
+                ? `https://parallelum.com.br/fipe/api/v2/cars/brands/${vehicle.brandId}/years/${vehicle.yearId}/models`
                 : ""
             }
           />

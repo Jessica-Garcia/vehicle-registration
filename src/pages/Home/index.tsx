@@ -1,32 +1,30 @@
-import {
-  Pencil,
-  Eye,
-  Trash,
-  Funnel,
-  PlusCircle,
-  CaretLeft,
-  CaretRight,
-} from "phosphor-react";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { PlusCircle, CaretLeft, CaretRight } from "phosphor-react";
+import { useCallback, useEffect, useState } from "react";
+import { api } from "../../lib/axios";
 import { IVehicle } from "../../@types/IVehicle";
 import {
   AddButton,
-  ButtonsContainer,
   HomeContainer,
+  Options,
   Pagination,
-  Title,
+  PaginationButton,
+  PassPagesButton,
   VehicleTable,
 } from "./styles";
-import { NavLink } from "react-router-dom";
 import { SearchForm } from "./components/SearchForm";
 import { TableItem } from "../../components/TableItem";
 
 export const Home = () => {
   const [vehicleList, setVehicleList] = useState<IVehicle[]>();
+  const [totalVehicle, setTotalVehicle] = useState<number>(0);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(0);
+  const [pages, setPages] = useState<number[]>([]);
+  const [recordLimitPerPage, setRecordLimitPerPage] = useState<number>(5);
+  const [query, setQuery] = useState<string>("");
 
   const deleteVehicle = async (id: string | undefined) => {
-    await axios.delete<IVehicle>(`http://localhost:3000/vehicles/${id}`);
+    await api.delete<IVehicle>(`vehicles/${id}`);
     const newVehicleList = vehicleList?.filter((vehicle) => {
       return vehicle.id !== id;
     });
@@ -41,36 +39,59 @@ export const Home = () => {
     }
   };
 
-  const getVehicles = async () => {
-    const { data } = await axios.get<IVehicle[] | undefined>(
-      "http://localhost:3000/vehicles"
-    );
+  const getVehicles = useCallback(async () => {
+    const response = await api.get<IVehicle[]>("vehicles", {
+      params: {
+        _sort: "licensePlate",
+        brand_like: query,
+        _limit: recordLimitPerPage,
+        _page: currentPage,
+        // q: query,
+      },
+    });
 
-    data && setVehicleList(data);
+    setTotalVehicle(Number(response.headers["x-total-count"]));
+    setTotalPages(Math.ceil(totalVehicle / recordLimitPerPage));
+
+    const arrayPages = [];
+    for (let page = 1; page <= totalPages; page++) {
+      arrayPages.push(page);
+    }
+    setPages(arrayPages);
+
+    response.data && setVehicleList(response.data);
+  }, [currentPage, query, totalVehicle, totalPages, recordLimitPerPage]);
+
+  const resetPage = (query: string) => {
+    setCurrentPage(1);
+    setQuery(query);
   };
 
   useEffect(() => {
-    const showVehicles = () => {
-      try {
-        getVehicles();
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    showVehicles();
-  }, []);
+    getVehicles();
+  }, [getVehicles]);
 
   return (
     <HomeContainer>
-      <SearchForm />
-      <Title>
-        <h2>Veículos cadastrados</h2>
+      <SearchForm onGetVehicles={resetPage} />
+      <Options>
+        <select
+          onChange={(e) => {
+            setRecordLimitPerPage(Number(e.target.value));
+            setCurrentPage(1);
+          }}
+        >
+          <option value="5"> Exibir 5 veículos por página</option>
+          <option value="10">Exibir 10 Veículos por página</option>
+          <option value="15">Exibir 15 Veículos por página</option>
+          <option value="20">Exibir 20 Veículos por página</option>
+        </select>
         <AddButton>
           <a href="/vehicle/add">
             <PlusCircle weight="bold" size={20} /> Novo
           </a>
         </AddButton>
-      </Title>
+      </Options>
 
       <VehicleTable>
         <thead>
@@ -96,17 +117,30 @@ export const Home = () => {
         </tbody>
       </VehicleTable>
 
-      {vehicleList && vehicleList?.length > 5 && (
+      {vehicleList && totalPages > 1 && (
         <Pagination>
-          <span>
-            <CaretLeft weight="bold" />
-          </span>
-          <button>1</button>
-          <button>2</button>
-          <button>3</button>
-          <span>
-            <CaretRight weight="bold" />
-          </span>
+          {currentPage > 1 && (
+            <PassPagesButton onClick={() => setCurrentPage(currentPage - 1)}>
+              <CaretLeft weight="bold" />
+            </PassPagesButton>
+          )}
+          {pages.map((page) => {
+            return (
+              <PaginationButton
+                key={page}
+                onClick={() => setCurrentPage(page)}
+                isSelected={page === currentPage}
+              >
+                {page}
+              </PaginationButton>
+            );
+          })}
+
+          {currentPage < totalPages && (
+            <PassPagesButton onClick={() => setCurrentPage(currentPage + 1)}>
+              <CaretRight weight="bold" />
+            </PassPagesButton>
+          )}
         </Pagination>
       )}
     </HomeContainer>
