@@ -5,8 +5,10 @@ import { IVehicle } from "../../@types/IVehicle";
 import {
   AddButton,
   HomeContainer,
+  Options,
   Pagination,
-  Title,
+  PaginationButton,
+  PassPagesButton,
   VehicleTable,
 } from "./styles";
 import { SearchForm } from "./components/SearchForm";
@@ -14,8 +16,11 @@ import { TableItem } from "../../components/TableItem";
 
 export const Home = () => {
   const [vehicleList, setVehicleList] = useState<IVehicle[]>();
-  const [pages, setPages] = useState<number>(0);
+  const [totalVehicle, setTotalVehicle] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(0);
+  const [pages, setPages] = useState<number[]>([]);
+  const [recordLimitPerPage, setRecordLimitPerPage] = useState<number>(5);
   const [query, setQuery] = useState<string>("");
 
   const deleteVehicle = async (id: string | undefined) => {
@@ -35,19 +40,27 @@ export const Home = () => {
   };
 
   const getVehicles = useCallback(async () => {
-    const limit = 3;
     const response = await api.get<IVehicle[]>("vehicles", {
       params: {
         _sort: "licensePlate",
         brand_like: query,
-        _limit: limit,
+        _limit: recordLimitPerPage,
         _page: currentPage,
         // q: query,
       },
     });
-    setPages(Math.ceil(response.headers["x-total-count"] / limit));
+
+    setTotalVehicle(Number(response.headers["x-total-count"]));
+    setTotalPages(Math.ceil(totalVehicle / recordLimitPerPage));
+
+    const arrayPages = [];
+    for (let page = 1; page <= totalPages; page++) {
+      arrayPages.push(page);
+    }
+    setPages(arrayPages);
+
     response.data && setVehicleList(response.data);
-  }, [currentPage, query]);
+  }, [currentPage, query, totalVehicle, totalPages, recordLimitPerPage]);
 
   const resetPage = (query: string) => {
     setCurrentPage(1);
@@ -61,14 +74,24 @@ export const Home = () => {
   return (
     <HomeContainer>
       <SearchForm onGetVehicles={resetPage} />
-      <Title>
-        <h2>Veículos cadastrados</h2>
+      <Options>
+        <select
+          onChange={(e) => {
+            setRecordLimitPerPage(Number(e.target.value));
+            setCurrentPage(1);
+          }}
+        >
+          <option value="5"> Exibir 5 veículos por página</option>
+          <option value="10">Exibir 10 Veículos por página</option>
+          <option value="15">Exibir 15 Veículos por página</option>
+          <option value="20">Exibir 20 Veículos por página</option>
+        </select>
         <AddButton>
           <a href="/vehicle/add">
             <PlusCircle weight="bold" size={20} /> Novo
           </a>
         </AddButton>
-      </Title>
+      </Options>
 
       <VehicleTable>
         <thead>
@@ -94,17 +117,30 @@ export const Home = () => {
         </tbody>
       </VehicleTable>
 
-      {vehicleList && pages > 1 && (
+      {vehicleList && totalPages > 1 && (
         <Pagination>
-          <span>
-            <CaretLeft weight="bold" />
-          </span>
-          <button onClick={() => setCurrentPage(1)}>1</button>
-          <button onClick={() => setCurrentPage(2)}>2</button>
-          <button onClick={() => setCurrentPage(3)}>3</button>
-          <span>
-            <CaretRight weight="bold" />
-          </span>
+          {currentPage > 1 && (
+            <PassPagesButton onClick={() => setCurrentPage(currentPage - 1)}>
+              <CaretLeft weight="bold" />
+            </PassPagesButton>
+          )}
+          {pages.map((page) => {
+            return (
+              <PaginationButton
+                key={page}
+                onClick={() => setCurrentPage(page)}
+                isSelected={page === currentPage}
+              >
+                {page}
+              </PaginationButton>
+            );
+          })}
+
+          {currentPage < totalPages && (
+            <PassPagesButton onClick={() => setCurrentPage(currentPage + 1)}>
+              <CaretRight weight="bold" />
+            </PassPagesButton>
+          )}
         </Pagination>
       )}
     </HomeContainer>
