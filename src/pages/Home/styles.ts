@@ -16,8 +16,21 @@ export const Options = styled.div`
   justify-content: space-between;
   gap: 1rem;
 
-  h2 {
-    color: ${(props) => props.theme["blue-300"]};
+  select {
+    //flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    border-radius: 6px;
+    //font-size: 14px;
+    border: 0;
+    background: ${(props) => props.theme["gray-600"]};
+    color: ${(props) => props.theme["blue-100"]};
+    padding: 0 1rem;
+
+    &::placeholder {
+    }
   }
 `;
 

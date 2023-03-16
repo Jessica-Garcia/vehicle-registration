@@ -2,7 +2,6 @@ import { ArrowFatLeft } from "phosphor-react";
 import { VehicleInfo } from "./styles";
 import { IVehicle } from "../../@types/IVehicle";
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { VehicleAttributesSelect } from "../../components/VehicleAttributesSelect";

@@ -62,9 +62,9 @@ export const Home = () => {
     response.data && setVehicleList(response.data);
   }, [currentPage, query, totalVehicle, totalPages, recordLimitPerPage]);
 
-  const resetPage = (query: string) => {
+  const resetPage = (query?: string) => {
     setCurrentPage(1);
-    setQuery(query);
+    setQuery(query!);
   };
 
   useEffect(() => {
@@ -73,7 +73,7 @@ export const Home = () => {
 
   return (
     <HomeContainer>
-      <SearchForm onGetVehicles={resetPage} />
+      <SearchForm onGetVehicles={resetPage} onResetSearch={resetPage} />
       <Options>
         <select
           onChange={(e) => {
@@ -81,10 +81,10 @@ export const Home = () => {
             setCurrentPage(1);
           }}
         >
-          <option value="5"> Exibir 5 veículos por página</option>
-          <option value="10">Exibir 10 Veículos por página</option>
-          <option value="15">Exibir 15 Veículos por página</option>
-          <option value="20">Exibir 20 Veículos por página</option>
+          <option value="5"> Exibir 5 veículos</option>
+          <option value="10">Exibir 10 Veículos</option>
+          <option value="15">Exibir 15 Veículos</option>
+          <option value="20">Exibir 20 Veículos</option>
         </select>
         <AddButton>
           <a href="/vehicle/add">

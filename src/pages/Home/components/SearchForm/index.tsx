@@ -1,9 +1,8 @@
-import { MagnifyingGlass } from "phosphor-react";
+import { MagnifyingGlass, X, XCircle } from "phosphor-react";
 import { SearchFormContainer } from "./styles";
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React from "react";
 
 const searchFormSchema = z.object({
   query: z.string(),
@@ -13,21 +12,32 @@ type SearchFormInputs = z.infer<typeof searchFormSchema>;
 
 interface SearchFormProps {
   onGetVehicles: (query: string) => void;
+  onResetSearch: () => void;
 }
 
-export const SearchForm = ({ onGetVehicles }: SearchFormProps) => {
+export const SearchForm = ({
+  onGetVehicles,
+  onResetSearch,
+}: SearchFormProps) => {
   const {
     register,
     reset,
     handleSubmit,
+    watch,
     formState: { isSubmitting },
   } = useForm<SearchFormInputs>({
     resolver: zodResolver(searchFormSchema),
   });
 
+  const query = watch("query");
+
   const handleSearchVehicles = async (data: SearchFormInputs) => {
     onGetVehicles(data.query);
-    // reset();
+  };
+
+  const handleResetSearchAndReturnToFirstPage = () => {
+    onResetSearch();
+    reset();
   };
 
   return (
@@ -38,7 +48,10 @@ export const SearchForm = ({ onGetVehicles }: SearchFormProps) => {
         autoComplete="off"
         {...register("query")}
       />
-      <button type="submit" disabled={isSubmitting}>
+      <button type="reset" onClick={handleResetSearchAndReturnToFirstPage}>
+        <X />
+      </button>
+      <button type="submit" disabled={!query}>
         <MagnifyingGlass size={20} weight="bold" />
         Buscar
       </button>
