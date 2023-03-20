@@ -1,5 +1,5 @@
 import { PlusCircle, CaretLeft, CaretRight } from "phosphor-react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { api } from "../../lib/axios";
 import { IVehicle } from "../../@types/IVehicle";
 import {
@@ -13,15 +13,27 @@ import {
 } from "./styles";
 import { SearchForm } from "./components/SearchForm";
 import { TableItem } from "../../components/TableItem";
+import { VehiclesContext } from "../../contexts/VehiclesContext";
 
 export const Home = () => {
-  const [vehicleList, setVehicleList] = useState<IVehicle[]>();
-  const [totalVehicle, setTotalVehicle] = useState<number>(0);
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const [totalPages, setTotalPages] = useState<number>(0);
-  const [pages, setPages] = useState<number[]>([]);
-  const [recordLimitPerPage, setRecordLimitPerPage] = useState<number>(5);
-  const [query, setQuery] = useState<string>("");
+  const {
+    vehicleList,
+    setVehicleList,
+    currentPage,
+    setCurrentPage,
+    totalPages,
+    pages,
+    setRecordLimitPerPage,
+    setQuery,
+  } = useContext(VehiclesContext);
+
+  // const [vehicleList, setVehicleList] = useState<IVehicle[]>();
+  // const [totalVehicle, setTotalVehicle] = useState<number>(0);
+  // const [currentPage, setCurrentPage] = useState<number>(1);
+  // const [totalPages, setTotalPages] = useState<number>(0);
+  // const [pages, setPages] = useState<number[]>([]);
+  // const [recordLimitPerPage, setRecordLimitPerPage] = useState<number>(5);
+  // const [query, setQuery] = useState<string>("");
 
   const deleteVehicle = async (id: string | undefined) => {
     await api.delete<IVehicle>(`vehicles/${id}`);
@@ -39,7 +51,7 @@ export const Home = () => {
     }
   };
 
-  const getVehicles = useCallback(async () => {
+  /* const getVehicles = useCallback(async () => {
     const response = await api.get<IVehicle[]>("vehicles", {
       params: {
         _sort: "licensePlate",
@@ -60,17 +72,17 @@ export const Home = () => {
     setPages(arrayPages);
 
     response.data && setVehicleList(response.data);
-  }, [currentPage, query, totalVehicle, totalPages, recordLimitPerPage]);
+  }, [currentPage, query, totalVehicle, totalPages, recordLimitPerPage]); */
 
   const resetPage = (query?: string) => {
     setCurrentPage(1);
     setQuery(query!);
   };
 
-  useEffect(() => {
+  /*  useEffect(() => {
     getVehicles();
   }, [getVehicles]);
-
+ */
   return (
     <HomeContainer>
       <SearchForm onGetVehicles={resetPage} onResetSearch={resetPage} />

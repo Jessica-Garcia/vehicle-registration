@@ -1,13 +1,15 @@
 import { ArrowFatLeft } from "phosphor-react";
 import { VehicleInfo } from "./styles";
 import { IVehicle } from "../../@types/IVehicle";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { VehicleAttributesSelect } from "../../components/VehicleAttributesSelect";
 import { api } from "../../lib/axios";
+import { VehiclesContext } from "../../contexts/VehiclesContext";
 
 export const Vehicle = () => {
+  const { vehicleList } = useContext(VehiclesContext);
   const [vehicle, setVehicle] = useState<IVehicle>({} as IVehicle);
   const { id } = useParams();
   const navigate = useNavigate();
@@ -42,10 +44,18 @@ export const Vehicle = () => {
   };
 
   const addVehicle = async () => {
-    await api.post<IVehicle>("vehicles", {
-      id: uuidv4(),
-      ...vehicle,
-    });
+    const licensePlateAlreadyExists = vehicleList?.some(
+      (item) => item.licensePlate === vehicle.licensePlate
+    );
+
+    if (!licensePlateAlreadyExists) {
+      await api.post<IVehicle>("vehicles", {
+        id: uuidv4(),
+        ...vehicle,
+      });
+    } else {
+      alert("Veículo já cadastrado");
+    }
   };
 
   const saveVehicle = () => {
@@ -53,6 +63,7 @@ export const Vehicle = () => {
       editVehicle();
     } else {
       addVehicle();
+      // navigate("/");
     }
   };
 
@@ -89,7 +100,6 @@ export const Vehicle = () => {
         <form
           onSubmit={() => {
             handleSaveVehicle();
-            navigate("/");
           }}
         >
           <label htmlFor="licensePlate">Placa</label>
