@@ -4,8 +4,11 @@ export const SearchFormContainer = styled.form`
   display: flex;
   gap: 1rem;
   margin-top: -5.5rem;
+  position: relative;
+
   input {
     flex: 1;
+    height: 50px;
     border-radius: 6px;
     border: 0;
     background: ${(props) => props.theme["gray-600"]};
@@ -17,7 +20,30 @@ export const SearchFormContainer = styled.form`
     }
   }
 
-  button {
+  button[type="reset"] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 0;
+    background: transparent;
+    color: ${(props) => props.theme["blue-100"]};
+    font-weight: bold;
+    position: absolute;
+    right: 145px;
+    top: 16px;
+    cursor: pointer;
+
+    &:hover {
+      color: ${(props) => props.theme["blue-200"]};
+    }
+
+    &:active {
+      color: ${(props) => props.theme["blue-600"]};
+    }
+  }
+
+  button[type="submit"] {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -32,12 +58,7 @@ export const SearchFormContainer = styled.form`
     font-weight: bold;
     cursor: pointer;
 
-    &:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-
-    &:not(:disabled):hover {
+    &:hover {
       background-color: ${(props) => props.theme["blue-600"]};
       transition: background-color 0.3s;
     }

@@ -1,5 +1,5 @@
 import { PlusCircle, CaretLeft, CaretRight } from "phosphor-react";
-import { useCallback, useEffect, useState } from "react";
+import { useContext } from "react";
 import { api } from "../../lib/axios";
 import { IVehicle } from "../../@types/IVehicle";
 import {
@@ -13,15 +13,19 @@ import {
 } from "./styles";
 import { SearchForm } from "./components/SearchForm";
 import { TableItem } from "../../components/TableItem";
+import { VehiclesContext } from "../../contexts/VehiclesContext";
 
 export const Home = () => {
-  const [vehicleList, setVehicleList] = useState<IVehicle[]>();
-  const [totalVehicle, setTotalVehicle] = useState<number>(0);
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const [totalPages, setTotalPages] = useState<number>(0);
-  const [pages, setPages] = useState<number[]>([]);
-  const [recordLimitPerPage, setRecordLimitPerPage] = useState<number>(5);
-  const [query, setQuery] = useState<string>("");
+  const {
+    vehicleList,
+    setVehicleList,
+    currentPage,
+    setCurrentPage,
+    totalPages,
+    pages,
+    setRecordLimitPerPage,
+    setQuery,
+  } = useContext(VehiclesContext);
 
   const deleteVehicle = async (id: string | undefined) => {
     await api.delete<IVehicle>(`vehicles/${id}`);
@@ -39,41 +43,14 @@ export const Home = () => {
     }
   };
 
-  const getVehicles = useCallback(async () => {
-    const response = await api.get<IVehicle[]>("vehicles", {
-      params: {
-        _sort: "licensePlate",
-        brand_like: query,
-        _limit: recordLimitPerPage,
-        _page: currentPage,
-        // q: query,
-      },
-    });
-
-    setTotalVehicle(Number(response.headers["x-total-count"]));
-    setTotalPages(Math.ceil(totalVehicle / recordLimitPerPage));
-
-    const arrayPages = [];
-    for (let page = 1; page <= totalPages; page++) {
-      arrayPages.push(page);
-    }
-    setPages(arrayPages);
-
-    response.data && setVehicleList(response.data);
-  }, [currentPage, query, totalVehicle, totalPages, recordLimitPerPage]);
-
-  const resetPage = (query: string) => {
+  const resetPage = (query?: string) => {
     setCurrentPage(1);
-    setQuery(query);
+    setQuery(query!);
   };
-
-  useEffect(() => {
-    getVehicles();
-  }, [getVehicles]);
 
   return (
     <HomeContainer>
-      <SearchForm onGetVehicles={resetPage} />
+      <SearchForm onGetVehicles={resetPage} onResetSearch={resetPage} />
       <Options>
         <select
           onChange={(e) => {
@@ -81,10 +58,10 @@ export const Home = () => {
             setCurrentPage(1);
           }}
         >
-          <option value="5"> Exibir 5 veículos por página</option>
-          <option value="10">Exibir 10 Veículos por página</option>
-          <option value="15">Exibir 15 Veículos por página</option>
-          <option value="20">Exibir 20 Veículos por página</option>
+          <option value="5"> Exibir 5 veículos</option>
+          <option value="10">Exibir 10 Veículos</option>
+          <option value="15">Exibir 15 Veículos</option>
+          <option value="20">Exibir 20 Veículos</option>
         </select>
         <AddButton>
           <a href="/vehicle/add">
