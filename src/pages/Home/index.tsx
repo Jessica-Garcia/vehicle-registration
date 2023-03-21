@@ -1,5 +1,5 @@
 import { PlusCircle, CaretLeft, CaretRight } from "phosphor-react";
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { api } from "../../lib/axios";
 import { IVehicle } from "../../@types/IVehicle";
 import {
@@ -27,14 +27,6 @@ export const Home = () => {
     setQuery,
   } = useContext(VehiclesContext);
 
-  // const [vehicleList, setVehicleList] = useState<IVehicle[]>();
-  // const [totalVehicle, setTotalVehicle] = useState<number>(0);
-  // const [currentPage, setCurrentPage] = useState<number>(1);
-  // const [totalPages, setTotalPages] = useState<number>(0);
-  // const [pages, setPages] = useState<number[]>([]);
-  // const [recordLimitPerPage, setRecordLimitPerPage] = useState<number>(5);
-  // const [query, setQuery] = useState<string>("");
-
   const deleteVehicle = async (id: string | undefined) => {
     await api.delete<IVehicle>(`vehicles/${id}`);
     const newVehicleList = vehicleList?.filter((vehicle) => {
@@ -51,38 +43,11 @@ export const Home = () => {
     }
   };
 
-  /* const getVehicles = useCallback(async () => {
-    const response = await api.get<IVehicle[]>("vehicles", {
-      params: {
-        _sort: "licensePlate",
-        brand_like: query,
-        _limit: recordLimitPerPage,
-        _page: currentPage,
-        // q: query,
-      },
-    });
-
-    setTotalVehicle(Number(response.headers["x-total-count"]));
-    setTotalPages(Math.ceil(totalVehicle / recordLimitPerPage));
-
-    const arrayPages = [];
-    for (let page = 1; page <= totalPages; page++) {
-      arrayPages.push(page);
-    }
-    setPages(arrayPages);
-
-    response.data && setVehicleList(response.data);
-  }, [currentPage, query, totalVehicle, totalPages, recordLimitPerPage]); */
-
   const resetPage = (query?: string) => {
     setCurrentPage(1);
     setQuery(query!);
   };
 
-  /*  useEffect(() => {
-    getVehicles();
-  }, [getVehicles]);
- */
   return (
     <HomeContainer>
       <SearchForm onGetVehicles={resetPage} onResetSearch={resetPage} />

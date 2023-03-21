@@ -1,10 +1,7 @@
-import axios from "axios";
 import { Eye, Pencil, Trash } from "phosphor-react";
-import { useCallback, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { IVehicle } from "../../@types/IVehicle";
-import { IVehicleAttributes } from "../../@types/IVehicleAttributes";
-import { ButtonsContainer } from "../../pages/Home/styles";
+import { ButtonsContainer } from "./styles";
 
 interface ITableItem {
   vehicle: IVehicle;

@@ -62,11 +62,6 @@ export const VehiclesProvider = ({ children }: VehiclesProviderProps) => {
     response.data && setVehicleList(response.data);
   }, [currentPage, query, totalVehicle, totalPages, recordLimitPerPage]);
 
-  const resetPage = (query?: string) => {
-    setCurrentPage(1);
-    setQuery(query!);
-  };
-
   useEffect(() => {
     getVehicles();
   }, [getVehicles]);

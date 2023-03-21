@@ -1,7 +1,7 @@
 import { ArrowFatLeft } from "phosphor-react";
 import { VehicleInfo } from "./styles";
 import { IVehicle } from "../../@types/IVehicle";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { VehicleAttributesSelect } from "../../components/VehicleAttributesSelect";
@@ -11,6 +11,7 @@ import { VehiclesContext } from "../../contexts/VehiclesContext";
 export const Vehicle = () => {
   const { vehicleList } = useContext(VehiclesContext);
   const [vehicle, setVehicle] = useState<IVehicle>({} as IVehicle);
+  const [loading, setLoading] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -43,12 +44,35 @@ export const Vehicle = () => {
     await api.put<IVehicle>(`vehicles/${id}`, vehicle);
   };
 
+  const licensePlateIndex = (list: IVehicle[] | undefined, item: IVehicle) => {
+    if (list && list.length) {
+      let lowestIndex = 0;
+      let highestIndex = list.length - 1;
+
+      while (lowestIndex <= highestIndex) {
+        const middleIndex = Math.floor((lowestIndex + highestIndex) / 2);
+        const shot = list[middleIndex];
+
+        if (shot.licensePlate === item.licensePlate) return middleIndex;
+
+        if (shot.licensePlate < item.licensePlate) {
+          lowestIndex = middleIndex + 1;
+        } else {
+          highestIndex = middleIndex - 1;
+        }
+      }
+
+      return null;
+    }
+  };
+
   const addVehicle = async () => {
-    const licensePlateAlreadyExists = vehicleList?.some(
-      (item) => item.licensePlate === vehicle.licensePlate
+    const licensePlateIndexAlreadyExists = licensePlateIndex(
+      vehicleList,
+      vehicle
     );
 
-    if (!licensePlateAlreadyExists) {
+    if (licensePlateIndexAlreadyExists === null) {
       await api.post<IVehicle>("vehicles", {
         id: uuidv4(),
         ...vehicle,
@@ -61,9 +85,9 @@ export const Vehicle = () => {
   const saveVehicle = () => {
     if (vehicle.id) {
       editVehicle();
+      navigate("/");
     } else {
       addVehicle();
-      // navigate("/");
     }
   };
 
@@ -75,27 +99,27 @@ export const Vehicle = () => {
     }
   };
 
-  useEffect(() => {
-    const getVehicle = async () => {
-      try {
-        if (id) {
-          const { data } = await api.get<IVehicle>(`vehicles/${id}`);
-
-          data && setVehicle(data);
-        }
-      } catch (error) {
-        console.error(error);
+  const getVehicle = useCallback(async () => {
+    setLoading(true);
+    try {
+      if (id) {
+        const { data } = await api.get<IVehicle>(`vehicles/${id}`);
+        data && setVehicle(data);
       }
-    };
-    getVehicle();
+    } catch (error) {
+      console.error(error);
+    }
+    setLoading(false);
   }, [id]);
+
+  useEffect(() => {
+    getVehicle();
+  }, [getVehicle]);
 
   return (
     <VehicleInfo>
       {id && !vehicle.id ? (
-        <div>
-          <h2>Veículo não encontrado</h2>
-        </div>
+        <div>{loading ? "Carregando..." : <h2>Veículo não encontrado</h2>}</div>
       ) : (
         <form
           onSubmit={() => {

@@ -74,4 +74,4 @@ export const VehicleInfo = styled.main`
   }
 `;
 
-export const ButtonsContainer = styled.div``;
+// export const ButtonsContainer = styled.div``;

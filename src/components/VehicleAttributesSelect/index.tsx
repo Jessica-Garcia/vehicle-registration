@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { IVehicleAttributes } from "../../@types/IVehicleAttributes";
 import { IVehicleAttributesSelectProps } from "../../@types/IVehicleAttributesSelectProps";
 import { SelectContainer } from "./style";
@@ -15,19 +15,19 @@ export const VehicleAttributesSelect = ({
     IVehicleAttributes[]
   >([]);
 
-  const [loading, setLoadind] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const getList = useCallback(async () => {
     setVehicleAttributes([]);
-    setLoadind(true);
+    setLoading(true);
     try {
       const { data } = await axios.get<IVehicleAttributes[] | undefined>(url);
       data && setVehicleAttributes(data);
     } catch (error) {
       console.error(error);
     }
-    setLoadind(false);
-  }, [url]);
+    setLoading(false);
+  }, [url, setLoading]);
 
   useEffect(() => {
     url && getList();
@@ -43,7 +43,7 @@ export const VehicleAttributesSelect = ({
       defaultValue=""
     >
       <option value="" disabled>
-        {loading ? "Carregando" : "Selecione"}
+        {loading ? "Carregando..." : "Selecione"}
       </option>
 
       {vehicleAttributes &&

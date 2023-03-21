@@ -17,13 +17,11 @@ export const Options = styled.div`
   gap: 1rem;
 
   select {
-    //flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
     height: 50px;
     border-radius: 6px;
-    //font-size: 14px;
     border: 0;
     background: ${(props) => props.theme["gray-600"]};
     color: ${(props) => props.theme["blue-100"]};
@@ -152,9 +150,9 @@ export const AddButton = styled.button`
   }
 `;
 
-export const ButtonsContainer = styled.div`
+/* export const ButtonsContainer = styled.div`
   display: flex;
   flex-wrap: nowrap;
   justify-content: center;
   gap: 0.5rem;
-`;
+`; */
