@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const VehicleInfo = styled.main`
   min-width: 32rem;
   border-radius: 6px;
-  padding: 2.5rem 3rem;
+  padding: 0.5rem 3rem;
   background: ${(props) => props.theme["gray-800"]};
 
   position: fixed;
@@ -35,6 +35,14 @@ export const VehicleInfo = styled.main`
       font-size: 1.1rem;
       font-weight: 700;
     }
+
+    /*     div {
+      border-radius: 6px;
+      background: ${(props) => props.theme["gray-900"]};
+      color: ${(props) => props.theme["gray-300"]};
+      padding: 1rem;
+    } */
+
     button[type="submit"] {
       height: 58px;
       border: 0;
@@ -70,6 +78,60 @@ export const VehicleInfo = styled.main`
         opacity: 0.6;
         transition: background-color 0.2s;
       }
+    }
+  }
+`;
+
+export const InfoContainer = styled.div`
+  min-width: 32rem;
+  border-radius: 6px;
+  padding: 1rem 3rem;
+  background: ${(props) => props.theme["gray-800"]};
+  position: fixed;
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+
+  div {
+    border: 0;
+    background: ${(props) => props.theme["gray-900"]};
+    color: ${(props) => props.theme["gray-300"]};
+    padding: 2rem 1rem;
+    width: 35rem;
+    height: 5rem;
+
+    label {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin: 20px;
+    }
+    span {
+      font-size: 1.2rem;
+    }
+  }
+
+  div:first-child {
+    margin-top: 2rem;
+  }
+
+  a {
+    color: ${(props) => props.theme["gray-300"]};
+    font-weight: bold;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    font-size: 1.2rem;
+    margin: 30px 20px;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.6;
+      transition: background-color 0.2s;
     }
   }
 `;

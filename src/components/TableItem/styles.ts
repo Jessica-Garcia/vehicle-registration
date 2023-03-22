@@ -105,4 +105,8 @@ export const ActionButtonsContainer = styled.div`
 export const GarbageButton = styled.button`
   border: 0;
   background: transparent;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
