@@ -11,18 +11,18 @@ import {
   PassPagesButton,
   VehicleTable,
 } from "./styles";
-import { SearchForm } from "./components/SearchForm";
+import { SearchForm } from "../../components/SearchForm";
 import { TableItem } from "../../components/TableItem";
 import { VehiclesContext } from "../../contexts/VehiclesContext";
 
 export const Home = () => {
   const {
     vehicleList,
-    setVehicleList,
-    currentPage,
-    setCurrentPage,
     totalPages,
+    currentPage,
     pages,
+    setCurrentPage,
+    setVehicleList,
     setRecordLimitPerPage,
     setQuery,
   } = useContext(VehiclesContext);
