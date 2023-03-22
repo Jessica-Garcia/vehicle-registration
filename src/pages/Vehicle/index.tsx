@@ -4,9 +4,10 @@ import { IVehicle } from "../../@types/IVehicle";
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
-import { VehicleAttributesSelect } from "../../components/VehicleAttributesSelect";
 import { api } from "../../lib/axios";
 import { VehiclesContext } from "../../contexts/VehiclesContext";
+import { VehicleNotFound } from "../../components/VehicleNotFound";
+import { VehicleRegistrationForm } from "../../components/VehicleRegistrationForm";
 
 export const Vehicle = () => {
   const { vehicleList } = useContext(VehiclesContext);
@@ -123,9 +124,7 @@ export const Vehicle = () => {
       {window.location.pathname === view ? (
         <VehicleInfo>
           {id && !vehicle.id ? (
-            <div>
-              {loading ? "Carregando..." : <h2>Veículo não encontrado</h2>}
-            </div>
+            <div>{loading ? "Carregando..." : <VehicleNotFound />}</div>
           ) : (
             <InfoContainer>
               <div>
@@ -154,137 +153,17 @@ export const Vehicle = () => {
       ) : (
         <VehicleInfo>
           {id && !vehicle.id ? (
-            <div>
-              {loading ? "Carregando..." : <h2>Veículo não encontrado</h2>}
-            </div>
+            <div>{loading ? "Carregando..." : <VehicleNotFound />}</div>
           ) : (
-            <form
-              onSubmit={() => {
-                handleSaveVehicle();
-              }}
-            >
-              <label htmlFor="licensePlate">Placa</label>
-              <input
-                autoComplete="off"
-                type="text"
-                name="licensePlate"
-                id="licensePlate"
-                value={vehicle?.licensePlate || ""}
-                onChange={handleInputChange}
-                placeholder="Informe a placa"
-                required
-              />
-
-              <label htmlFor="brand">Marca</label>
-              <VehicleAttributesSelect
-                value={vehicle?.brandId}
-                name="brand"
-                selectChange={handleSelectChange}
-                url={`https://parallelum.com.br/fipe/api/v2/cars/brands`}
-                disabled={!vehicle.licensePlate}
-              />
-
-              <label htmlFor="year">Ano</label>
-              <VehicleAttributesSelect
-                value={vehicle?.yearId}
-                name="year"
-                selectChange={handleSelectChange}
-                url={
-                  vehicle.brand
-                    ? `https://parallelum.com.br/fipe/api/v2/cars/brands/${vehicle.brandId}/years`
-                    : ""
-                }
-                disabled={!vehicle.brand}
-              />
-
-              <label htmlFor="model">Modelo</label>
-
-              <VehicleAttributesSelect
-                value={vehicle?.modelId}
-                name="model"
-                selectChange={handleSelectChange}
-                disabled={!vehicle.brand || !vehicle.year}
-                url={
-                  vehicle.year
-                    ? `https://parallelum.com.br/fipe/api/v2/cars/brands/${vehicle.brandId}/years/${vehicle.yearId}/models`
-                    : ""
-                }
-              />
-
-              <button type="submit">Salvar</button>
-              <NavLink to="/">
-                <ArrowFatLeft /> voltar
-              </NavLink>
-            </form>
+            <VehicleRegistrationForm
+              vehicle={vehicle}
+              onInputChange={handleInputChange}
+              onSelectChange={handleSelectChange}
+              onSaveVehicle={handleSaveVehicle}
+            />
           )}
         </VehicleInfo>
       )}
     </>
   );
 };
-/* return (
-  <VehicleInfo>
-    {id && !vehicle.id ? (
-      <div>{loading ? "Carregando..." : <h2>Veículo não encontrado</h2>}</div>
-    ) : (
-      <form
-        onSubmit={() => {
-          handleSaveVehicle();
-        }}
-      >
-        <label htmlFor="licensePlate">Placa</label>
-        <input
-          autoComplete="off"
-          type="text"
-          name="licensePlate"
-          id="licensePlate"
-          value={vehicle?.licensePlate || ""}
-          onChange={handleInputChange}
-          placeholder="Informe a placa"
-          required
-        />
-
-        <label htmlFor="brand">Marca</label>
-        <VehicleAttributesSelect
-          value={vehicle?.brandId}
-          name="brand"
-          selectChange={handleSelectChange}
-          url={`https://parallelum.com.br/fipe/api/v2/cars/brands`}
-          disabled={!vehicle.licensePlate}
-        />
-
-        <label htmlFor="year">Ano</label>
-        <VehicleAttributesSelect
-          value={vehicle?.yearId}
-          name="year"
-          selectChange={handleSelectChange}
-          url={
-            vehicle.brand
-              ? `https://parallelum.com.br/fipe/api/v2/cars/brands/${vehicle.brandId}/years`
-              : ""
-          }
-          disabled={!vehicle.brand}
-        />
-
-        <label htmlFor="model">Modelo</label>
-
-        <VehicleAttributesSelect
-          value={vehicle?.modelId}
-          name="model"
-          selectChange={handleSelectChange}
-          disabled={!vehicle.brand || !vehicle.year}
-          url={
-            vehicle.year
-              ? `https://parallelum.com.br/fipe/api/v2/cars/brands/${vehicle.brandId}/years/${vehicle.yearId}/models`
-              : ""
-          }
-        />
-
-        <button type="submit">Salvar</button>
-        <NavLink to="/">
-          <ArrowFatLeft /> voltar
-        </NavLink>
-      </form>
-    )}
-  </VehicleInfo>
-); */

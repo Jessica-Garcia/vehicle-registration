@@ -14,7 +14,7 @@ export const VehicleInfo = styled.main`
   transform: translate(-50%, -50%);
 
   form {
-    margin-top: 2rem;
+    /* margin-top: 2rem;
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -35,13 +35,6 @@ export const VehicleInfo = styled.main`
       font-size: 1.1rem;
       font-weight: 700;
     }
-
-    /*     div {
-      border-radius: 6px;
-      background: ${(props) => props.theme["gray-900"]};
-      color: ${(props) => props.theme["gray-300"]};
-      padding: 1rem;
-    } */
 
     button[type="submit"] {
       height: 58px;
@@ -78,7 +71,7 @@ export const VehicleInfo = styled.main`
         opacity: 0.6;
         transition: background-color 0.2s;
       }
-    }
+    } */
   }
 `;
 
@@ -135,5 +128,3 @@ export const InfoContainer = styled.div`
     }
   }
 `;
-
-// export const ButtonsContainer = styled.div``;
