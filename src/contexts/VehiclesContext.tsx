@@ -27,6 +27,7 @@ interface VehiclesContextType {
   setPages: React.Dispatch<React.SetStateAction<number[]>>;
   setRecordLimitPerPage: React.Dispatch<React.SetStateAction<number>>;
   setQuery: React.Dispatch<React.SetStateAction<string>>;
+  getVehicles: () => Promise<void>;
 }
 
 export const VehiclesContext = createContext({} as VehiclesContextType);
@@ -83,6 +84,7 @@ export const VehiclesProvider = ({ children }: VehiclesProviderProps) => {
         setTotalPages,
         setPages,
         setRecordLimitPerPage,
+        getVehicles,
       }}
     >
       {children}

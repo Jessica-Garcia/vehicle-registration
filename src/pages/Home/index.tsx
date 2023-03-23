@@ -25,6 +25,7 @@ export const Home = () => {
     setVehicleList,
     setRecordLimitPerPage,
     setQuery,
+    getVehicles,
   } = useContext(VehiclesContext);
 
   const deleteVehicle = async (id: string | undefined) => {
@@ -33,6 +34,7 @@ export const Home = () => {
       return vehicle.id !== id;
     });
     setVehicleList(newVehicleList);
+    getVehicles();
   };
 
   const handleDeleteVehicle = (id: string | undefined) => {
