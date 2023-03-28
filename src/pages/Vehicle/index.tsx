@@ -1,5 +1,5 @@
-import { ArrowFatLeft } from "phosphor-react";
-import { InfoContainer, VehicleInfo } from "./styles";
+import { ArrowFatLeft, Pencil } from "phosphor-react";
+import { InfoContainer, OptionButtonsContainer, VehicleInfo } from "./styles";
 import { IVehicle } from "../../@types/IVehicle";
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
@@ -8,9 +8,10 @@ import { api } from "../../lib/axios";
 import { VehiclesContext } from "../../contexts/VehiclesContext";
 import { VehicleNotFound } from "../../components/VehicleNotFound";
 import { VehicleRegistrationForm } from "../../components/VehicleRegistrationForm";
+import { DeleteModal } from "../../components/DeleteModal";
 
 export const Vehicle = () => {
-  const { vehicleList } = useContext(VehiclesContext);
+  const { vehicleList, deleteVehicle } = useContext(VehiclesContext);
   const [vehicle, setVehicle] = useState<IVehicle>({} as IVehicle);
   const [loading, setLoading] = useState(false);
   const { id } = useParams();
@@ -72,23 +73,28 @@ export const Vehicle = () => {
       vehicleList,
       vehicle
     );
-
     if (licensePlateIndexAlreadyExists === null) {
+      const id = uuidv4();
       await api.post<IVehicle>("vehicles", {
-        id: uuidv4(),
+        id,
         ...vehicle,
       });
+      alert("veículo cadastrado");
+      return id;
     } else {
       alert("Veículo já cadastrado");
     }
   };
 
-  const saveVehicle = () => {
+  const saveVehicle = async () => {
     if (vehicle.id) {
       editVehicle();
-      navigate("/");
+      console.log("deu errado");
+      navigate(`/vehicle/${vehicle.id}`);
     } else {
-      addVehicle();
+      const id = await addVehicle();
+      console.log("id", id);
+      // navigate(`/vehicle/view/${id}`);
     }
   };
 
@@ -143,10 +149,19 @@ export const Vehicle = () => {
                 <label htmlFor="model">Modelo:</label>
                 <span>{vehicle?.model}</span>
               </div>
+              <OptionButtonsContainer>
+                <NavLink to="/">
+                  <ArrowFatLeft weight="bold" color="#176bc2" />
+                </NavLink>
+                <NavLink to={`/vehicle/edit/${vehicle.id}`}>
+                  <Pencil weight="bold" size={20} color="#E6ED17" />
+                </NavLink>
 
-              <NavLink to="/">
-                <ArrowFatLeft /> voltar
-              </NavLink>
+                <DeleteModal
+                  deleteVehicle={deleteVehicle}
+                  vehicleId={vehicle.id}
+                />
+              </OptionButtonsContainer>
             </InfoContainer>
           )}
         </VehicleInfo>

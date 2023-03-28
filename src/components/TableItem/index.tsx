@@ -13,6 +13,7 @@ import {
   Title,
 } from "./styles";
 import * as AlertDialog from "@radix-ui/react-alert-dialog";
+import { DeleteModal } from "../DeleteModal";
 interface ITableItem {
   vehicle: IVehicle;
   onDeleteVehicle: (id?: string) => void;
@@ -35,41 +36,42 @@ export const TableItem = ({ vehicle, onDeleteVehicle }: ITableItem) => {
           <NavLink to={`/vehicle/edit/${vehicle.id}`}>
             <Pencil weight="bold" size={20} color="#E6ED17" />
           </NavLink>
-
-          <AlertDialog.Root>
-            <AlertDialog.Trigger asChild>
-              <GarbageButton>
-                <Trash weight="bold" size={20} color="#AB222E" />
-              </GarbageButton>
-            </AlertDialog.Trigger>
-            <AlertDialog.Portal>
-              <Overlay />
-              <Content>
-                <Title>Você tem certeza que quer excluir esse veículo?</Title>
-                <Description>
-                  Essa ação não poderá ser desfeita. O veículo será excluído
-                  permanentemente.
-                </Description>
-                <ActionButtonsContainer>
-                  <CancelButton asChild>
-                    <button>Cancelar</button>
-                  </CancelButton>
-                  <ActionButton asChild>
-                    <button
-                      onClick={() => {
-                        onDeleteVehicle(vehicle.id);
-                        navigate("/");
-                      }}
-                    >
-                      Sim, excluir veículo
-                    </button>
-                  </ActionButton>
-                </ActionButtonsContainer>
-              </Content>
-            </AlertDialog.Portal>
-          </AlertDialog.Root>
+          <DeleteModal deleteVehicle={onDeleteVehicle} vehicleId={vehicle.id} />
         </ButtonsContainer>
       </td>
     </tr>
   );
 };
+
+/* <AlertDialog.Root>
+  <AlertDialog.Trigger asChild>
+    <GarbageButton>
+      <Trash weight="bold" size={20} color="#AB222E" />
+    </GarbageButton>
+  </AlertDialog.Trigger>
+  <AlertDialog.Portal>
+    <Overlay />
+    <Content>
+      <Title>Você tem certeza que quer excluir esse veículo?</Title>
+      <Description>
+        Essa ação não poderá ser desfeita. O veículo será excluído
+        permanentemente.
+      </Description>
+      <ActionButtonsContainer>
+        <CancelButton asChild>
+          <button>Cancelar</button>
+        </CancelButton>
+        <ActionButton asChild>
+          <button
+            onClick={() => {
+              onDeleteVehicle(vehicle.id);
+              navigate("/");
+            }}
+          >
+            Sim, excluir veículo
+          </button>
+        </ActionButton>
+      </ActionButtonsContainer>
+    </Content>
+  </AlertDialog.Portal>
+</AlertDialog.Root> */

@@ -40,7 +40,6 @@ export const VehicleAttributesSelect = ({
       id=""
       value={value}
       onChange={selectChange}
-      defaultValue=""
     >
       <option value="" disabled>
         {loading ? "Carregando..." : "Selecione"}
