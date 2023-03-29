@@ -1,6 +1,6 @@
 import { ArrowFatLeft } from "phosphor-react";
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { IVehicle } from "../../@types/IVehicle";
 import { VehicleAttributesSelect } from "../VehicleAttributesSelect";
 import { FormContainer } from "./styles";
@@ -38,7 +38,7 @@ export const VehicleRegistrationForm = ({
 
       <label htmlFor="brand">Marca</label>
       <VehicleAttributesSelect
-        value={vehicle?.brandId}
+        value={vehicle?.brandId || ""}
         name="brand"
         selectChange={onSelectChange}
         url={`https://parallelum.com.br/fipe/api/v2/cars/brands`}
@@ -47,7 +47,7 @@ export const VehicleRegistrationForm = ({
 
       <label htmlFor="year">Ano</label>
       <VehicleAttributesSelect
-        value={vehicle?.yearId}
+        value={vehicle?.yearId || ""}
         name="year"
         selectChange={onSelectChange}
         url={
@@ -61,7 +61,7 @@ export const VehicleRegistrationForm = ({
       <label htmlFor="model">Modelo</label>
 
       <VehicleAttributesSelect
-        value={vehicle?.modelId}
+        value={vehicle?.modelId || ""}
         name="model"
         selectChange={onSelectChange}
         disabled={!vehicle.brand || !vehicle.year}
@@ -73,9 +73,16 @@ export const VehicleRegistrationForm = ({
       />
 
       <button type="submit">Salvar</button>
-      <NavLink to="/">
-        <ArrowFatLeft /> voltar
-      </NavLink>
+
+      {window.location.pathname === `/vehicle/edit/${vehicle.id}` ? (
+        <NavLink to={`/vehicle/view/${vehicle.id}`}>
+          <ArrowFatLeft /> voltar
+        </NavLink>
+      ) : (
+        <NavLink to="/">
+          <ArrowFatLeft /> voltar
+        </NavLink>
+      )}
     </FormContainer>
   );
 };

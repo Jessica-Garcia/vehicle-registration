@@ -1,7 +1,5 @@
 import { PlusCircle, CaretLeft, CaretRight } from "phosphor-react";
 import { useContext } from "react";
-import { api } from "../../lib/axios";
-import { IVehicle } from "../../@types/IVehicle";
 import {
   AddButton,
   HomeContainer,
@@ -22,20 +20,21 @@ export const Home = () => {
     currentPage,
     pages,
     setCurrentPage,
-    setVehicleList,
+    // setVehicleList,
     setRecordLimitPerPage,
     setQuery,
-    getVehicles,
+    // getVehicles,
+    deleteVehicle,
   } = useContext(VehiclesContext);
 
-  const deleteVehicle = async (id: string | undefined) => {
+  /* const deleteVehicle = async (id: string | undefined) => {
     await api.delete<IVehicle>(`vehicles/${id}`);
     const newVehicleList = vehicleList?.filter((vehicle) => {
       return vehicle.id !== id;
     });
     setVehicleList(newVehicleList);
     getVehicles();
-  };
+  }; */
 
   const handleDeleteVehicle = (id: string | undefined) => {
     try {

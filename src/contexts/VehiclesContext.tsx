@@ -28,6 +28,7 @@ interface VehiclesContextType {
   setRecordLimitPerPage: React.Dispatch<React.SetStateAction<number>>;
   setQuery: React.Dispatch<React.SetStateAction<string>>;
   getVehicles: () => Promise<void>;
+  deleteVehicle: (id: string | undefined) => Promise<void>;
 }
 
 export const VehiclesContext = createContext({} as VehiclesContextType);
@@ -42,6 +43,7 @@ export const VehiclesProvider = ({ children }: VehiclesProviderProps) => {
   const [query, setQuery] = useState<string>("");
 
   const getVehicles = useCallback(async () => {
+    console.log("DEU RUIM!");
     const response = await api.get<IVehicle[]>("vehicles", {
       params: {
         _sort: "licensePlate",
@@ -62,6 +64,15 @@ export const VehiclesProvider = ({ children }: VehiclesProviderProps) => {
 
     response.data && setVehicleList(response.data);
   }, [currentPage, query, totalVehicle, totalPages, recordLimitPerPage]);
+
+  const deleteVehicle = async (id: string | undefined) => {
+    await api.delete<IVehicle>(`vehicles/${id}`);
+    const newVehicleList = vehicleList?.filter((vehicle) => {
+      return vehicle.id !== id;
+    });
+    setVehicleList(newVehicleList);
+    getVehicles();
+  };
 
   useEffect(() => {
     getVehicles();
@@ -85,6 +96,7 @@ export const VehiclesProvider = ({ children }: VehiclesProviderProps) => {
         setPages,
         setRecordLimitPerPage,
         getVehicles,
+        deleteVehicle,
       }}
     >
       {children}

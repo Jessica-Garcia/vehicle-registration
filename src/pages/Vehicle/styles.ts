@@ -115,11 +115,12 @@ export const InfoContainer = styled.div`
   a {
     color: ${(props) => props.theme["gray-300"]};
     font-weight: bold;
+    text-decoration: none;
     display: flex;
     gap: 0.5rem;
     align-items: center;
     font-size: 1.2rem;
-    margin: 30px 20px;
+    //margin: 30px 20px;
     cursor: pointer;
 
     &:hover {
@@ -127,4 +128,12 @@ export const InfoContainer = styled.div`
       transition: background-color 0.2s;
     }
   }
+`;
+
+export const OptionButtonsContainer = styled.article`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+  margin-top: 50px;
 `;
