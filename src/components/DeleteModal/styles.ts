@@ -92,7 +92,8 @@ export const ActionButton = styled(AlertDialog.Action)`
 
 export const ActionButtonsContainer = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
+  gap: 2rem;
 `;
 
 export const GarbageButton = styled.button`
