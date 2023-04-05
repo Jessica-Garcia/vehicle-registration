@@ -1,18 +1,7 @@
 import { Eye, Pencil, Trash } from "phosphor-react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { IVehicle } from "../../@types/IVehicle";
-import {
-  ActionButton,
-  ActionButtonsContainer,
-  ButtonsContainer,
-  CancelButton,
-  Content,
-  Description,
-  GarbageButton,
-  Overlay,
-  Title,
-} from "./styles";
-import * as AlertDialog from "@radix-ui/react-alert-dialog";
+import { ButtonsContainer } from "./styles";
 import { DeleteModal } from "../DeleteModal";
 interface ITableItem {
   vehicle: IVehicle;
@@ -20,8 +9,6 @@ interface ITableItem {
 }
 
 export const TableItem = ({ vehicle, onDeleteVehicle }: ITableItem) => {
-  const navigate = useNavigate();
-
   return (
     <tr key={vehicle.id}>
       <td>{vehicle.licensePlate}</td>
@@ -42,36 +29,3 @@ export const TableItem = ({ vehicle, onDeleteVehicle }: ITableItem) => {
     </tr>
   );
 };
-
-/* <AlertDialog.Root>
-  <AlertDialog.Trigger asChild>
-    <GarbageButton>
-      <Trash weight="bold" size={20} color="#AB222E" />
-    </GarbageButton>
-  </AlertDialog.Trigger>
-  <AlertDialog.Portal>
-    <Overlay />
-    <Content>
-      <Title>Você tem certeza que quer excluir esse veículo?</Title>
-      <Description>
-        Essa ação não poderá ser desfeita. O veículo será excluído
-        permanentemente.
-      </Description>
-      <ActionButtonsContainer>
-        <CancelButton asChild>
-          <button>Cancelar</button>
-        </CancelButton>
-        <ActionButton asChild>
-          <button
-            onClick={() => {
-              onDeleteVehicle(vehicle.id);
-              navigate("/");
-            }}
-          >
-            Sim, excluir veículo
-          </button>
-        </ActionButton>
-      </ActionButtonsContainer>
-    </Content>
-  </AlertDialog.Portal>
-</AlertDialog.Root> */

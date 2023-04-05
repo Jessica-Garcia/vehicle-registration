@@ -11,7 +11,8 @@ import { VehicleRegistrationForm } from "../../components/VehicleRegistrationFor
 import { DeleteModal } from "../../components/DeleteModal";
 
 export const Vehicle = () => {
-  const { vehicleList, deleteVehicle } = useContext(VehiclesContext);
+  const { vehicleList, deleteVehicle, getVehicles } =
+    useContext(VehiclesContext);
   const [vehicle, setVehicle] = useState<IVehicle>({} as IVehicle);
   const [loading, setLoading] = useState(false);
   const { id } = useParams();
@@ -42,70 +43,6 @@ export const Vehicle = () => {
     }));
   };
 
-  const editVehicle = async () => {
-    await api.put<IVehicle>(`vehicles/${id}`, vehicle);
-  };
-
-  const licensePlateIndex = (list: IVehicle[] | undefined, item: IVehicle) => {
-    if (list && list.length) {
-      let lowestIndex = 0;
-      let highestIndex = list.length - 1;
-
-      while (lowestIndex <= highestIndex) {
-        const middleIndex = Math.floor((lowestIndex + highestIndex) / 2);
-        const shot = list[middleIndex];
-
-        if (shot.licensePlate === item.licensePlate) return middleIndex;
-
-        if (shot.licensePlate < item.licensePlate) {
-          lowestIndex = middleIndex + 1;
-        } else {
-          highestIndex = middleIndex - 1;
-        }
-      }
-
-      return null;
-    }
-  };
-
-  const addVehicle = async () => {
-    const licensePlateIndexAlreadyExists = licensePlateIndex(
-      vehicleList,
-      vehicle
-    );
-    if (licensePlateIndexAlreadyExists === null) {
-      const id = uuidv4();
-      await api.post<IVehicle>("vehicles", {
-        id,
-        ...vehicle,
-      });
-      alert("veículo cadastrado");
-      return id;
-    } else {
-      alert("Veículo já cadastrado");
-    }
-  };
-
-  const saveVehicle = async () => {
-    if (vehicle.id) {
-      editVehicle();
-      console.log("deu errado");
-      navigate(`/vehicle/${vehicle.id}`);
-    } else {
-      const id = await addVehicle();
-      console.log("id", id);
-      // navigate(`/vehicle/view/${id}`);
-    }
-  };
-
-  const handleSaveVehicle = () => {
-    try {
-      saveVehicle();
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const getVehicle = useCallback(async () => {
     setLoading(true);
     try {
@@ -118,6 +55,46 @@ export const Vehicle = () => {
     }
     setLoading(false);
   }, [id]);
+
+  const editVehicle = async () => {
+    await api.put<IVehicle>(`vehicles/${id}`, vehicle);
+  };
+
+  const licensePlateAlreadyExists = () => {
+    return vehicleList?.some(
+      (item) => item.licensePlate === vehicle.licensePlate
+    );
+  };
+
+  const addVehicle = async () => {
+    const id = uuidv4();
+    if (licensePlateAlreadyExists()) {
+      return alert("Veículo já existe!");
+    } else {
+      await api.post<IVehicle>("vehicles", {
+        id,
+        ...vehicle,
+      });
+    }
+  };
+
+  const saveVehicle = async () => {
+    if (vehicle.id) {
+      editVehicle();
+      navigate(`/vehicle/view/${vehicle.id}`);
+    } else {
+      addVehicle();
+    }
+  };
+
+  const handleSaveVehicle = () => {
+    try {
+      saveVehicle();
+      getVehicles();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     getVehicle();
@@ -174,7 +151,9 @@ export const Vehicle = () => {
               vehicle={vehicle}
               onInputChange={handleInputChange}
               onSelectChange={handleSelectChange}
-              onSaveVehicle={handleSaveVehicle}
+              onSaveVehicle={() => {
+                handleSaveVehicle();
+              }}
             />
           )}
         </VehicleInfo>

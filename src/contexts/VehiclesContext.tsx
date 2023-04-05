@@ -43,7 +43,6 @@ export const VehiclesProvider = ({ children }: VehiclesProviderProps) => {
   const [query, setQuery] = useState<string>("");
 
   const getVehicles = useCallback(async () => {
-    console.log("DEU RUIM!");
     const response = await api.get<IVehicle[]>("vehicles", {
       params: {
         _sort: "licensePlate",
