@@ -102,6 +102,11 @@ export const PaginationButton = styled.button<IsSelected>`
     background: ${(props) => props.theme["gray-400"]};
 
     transition: background 0.3s;
+
+    ${(props) =>
+      props.isSelected && {
+        background: props.theme["blue-300"],
+      }}
   }
 `;
 
