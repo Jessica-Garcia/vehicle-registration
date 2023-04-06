@@ -99,6 +99,7 @@ export const ActionButtonsContainer = styled.div`
 export const GarbageButton = styled.button`
   border: 0;
   background: transparent;
+  color: ${(props) => props.theme["red-300"]};
 
   &:hover {
     cursor: pointer;

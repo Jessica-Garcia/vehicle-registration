@@ -26,7 +26,7 @@ export const DeleteModal = ({
     <AlertDialog.Root>
       <AlertDialog.Trigger asChild>
         <GarbageButton>
-          <Trash weight="bold" size={20} color="#AB222E" />
+          <Trash weight="bold" size={20} />
         </GarbageButton>
       </AlertDialog.Trigger>
       <AlertDialog.Portal>

@@ -110,6 +110,27 @@ export const Vehicle = () => {
             <div>{loading ? "Carregando..." : <VehicleNotFound />}</div>
           ) : (
             <InfoContainer>
+              <OptionButtonsContainer>
+                <span>
+                  <NavLink to="/">
+                    <ArrowFatLeft weight="bold" />
+                    Voltar
+                  </NavLink>
+                </span>
+                <span>
+                  <NavLink to={`/vehicle/edit/${vehicle.id}`}>
+                    <Pencil weight="bold" size={20} />
+                    Editar
+                  </NavLink>
+                </span>
+                <span>
+                  <DeleteModal
+                    deleteVehicle={deleteVehicle}
+                    vehicleId={vehicle.id}
+                  />
+                  Excluir
+                </span>
+              </OptionButtonsContainer>
               <div>
                 <label>Placa:</label>
                 <span>{vehicle?.licensePlate || ""}</span>
@@ -126,19 +147,6 @@ export const Vehicle = () => {
                 <label htmlFor="model">Modelo:</label>
                 <span>{vehicle?.model}</span>
               </div>
-              <OptionButtonsContainer>
-                <NavLink to="/">
-                  <ArrowFatLeft weight="bold" color="#176bc2" />
-                </NavLink>
-                <NavLink to={`/vehicle/edit/${vehicle.id}`}>
-                  <Pencil weight="bold" size={20} color="#E6ED17" />
-                </NavLink>
-
-                <DeleteModal
-                  deleteVehicle={deleteVehicle}
-                  vehicleId={vehicle.id}
-                />
-              </OptionButtonsContainer>
             </InfoContainer>
           )}
         </VehicleInfo>

@@ -5,7 +5,6 @@ export const VehicleInfo = styled.main`
   border-radius: 6px;
   padding: 0.5rem 3rem;
   background: ${(props) => props.theme["gray-800"]};
-
   position: fixed;
 
   /* Centralizar na tela */
@@ -132,8 +131,43 @@ export const InfoContainer = styled.div`
 
 export const OptionButtonsContainer = styled.article`
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 50px;
-  margin-top: 50px;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  margin-bottom: 30px;
+
+  span {
+    width: 120px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: solid 2px ${(props) => props.theme["gray-900"]};
+    cursor: pointer;
+  }
+
+  span:first-child {
+    a {
+      color: ${(props) => props.theme["blue-500"]};
+      font-size: 1rem;
+    }
+  }
+
+  span:nth-of-type(2) {
+    a {
+      color: ${(props) => props.theme.yellow};
+      font-size: 1rem;
+    }
+  }
+
+  span:last-child {
+    font-weight: bold;
+    color: ${(props) => props.theme["red-300"]};
+    font-size: 1rem;
+    gap: 0.5rem;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
 `;
