@@ -19,13 +19,7 @@ export const SearchForm = ({
   onGetVehicles,
   onResetSearch,
 }: SearchFormProps) => {
-  const {
-    register,
-    reset,
-    handleSubmit,
-    watch,
-    formState: { isSubmitting },
-  } = useForm<SearchFormInputs>({
+  const { register, reset, handleSubmit, watch } = useForm<SearchFormInputs>({
     resolver: zodResolver(searchFormSchema),
   });
 
