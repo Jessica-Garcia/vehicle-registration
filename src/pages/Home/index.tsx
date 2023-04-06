@@ -1,5 +1,5 @@
 import { PlusCircle, CaretLeft, CaretRight } from "phosphor-react";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import {
   AddButton,
   HomeContainer,
@@ -27,14 +27,27 @@ export const Home = () => {
     deleteVehicle,
   } = useContext(VehiclesContext);
 
-  /* const deleteVehicle = async (id: string | undefined) => {
-    await api.delete<IVehicle>(`vehicles/${id}`);
-    const newVehicleList = vehicleList?.filter((vehicle) => {
-      return vehicle.id !== id;
-    });
-    setVehicleList(newVehicleList);
-    getVehicles();
-  }; */
+  const [pageNumberLimit, setPageNumberLimit] = useState(3);
+  const [maxPageNumberLimit, setMaxPageNumberLimit] = useState(3);
+  const [minPageNumberLimit, setMinPageNumberLimit] = useState(0);
+
+  const handleNextPageButton = () => {
+    setCurrentPage(currentPage + 1);
+
+    if (currentPage + 1 > maxPageNumberLimit) {
+      setMaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit);
+      setMinPageNumberLimit(minPageNumberLimit + pageNumberLimit);
+    }
+  };
+
+  const handlePreviousPageButton = () => {
+    setCurrentPage(currentPage - 1);
+
+    if ((currentPage - 1) % pageNumberLimit === 0) {
+      setMaxPageNumberLimit(maxPageNumberLimit - pageNumberLimit);
+      setMinPageNumberLimit(minPageNumberLimit - pageNumberLimit);
+    }
+  };
 
   const handleDeleteVehicle = (id: string | undefined) => {
     try {
@@ -98,24 +111,28 @@ export const Home = () => {
       {vehicleList && totalPages > 1 && (
         <Pagination>
           {currentPage > 1 && (
-            <PassPagesButton onClick={() => setCurrentPage(currentPage - 1)}>
+            <PassPagesButton onClick={handlePreviousPageButton}>
               <CaretLeft weight="bold" />
             </PassPagesButton>
           )}
           {pages.map((page) => {
-            return (
-              <PaginationButton
-                key={page}
-                onClick={() => setCurrentPage(page)}
-                isSelected={page === currentPage}
-              >
-                {page}
-              </PaginationButton>
-            );
+            if (page < maxPageNumberLimit + 1 && page > minPageNumberLimit) {
+              return (
+                <PaginationButton
+                  key={page}
+                  onClick={() => setCurrentPage(page)}
+                  isSelected={page === currentPage}
+                >
+                  {page}
+                </PaginationButton>
+              );
+            } else {
+              return null;
+            }
           })}
 
           {currentPage < totalPages && (
-            <PassPagesButton onClick={() => setCurrentPage(currentPage + 1)}>
+            <PassPagesButton onClick={handleNextPageButton}>
               <CaretRight weight="bold" />
             </PassPagesButton>
           )}
