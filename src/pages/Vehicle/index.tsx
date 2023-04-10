@@ -60,21 +60,27 @@ export const Vehicle = () => {
     await api.put<IVehicle>(`vehicles/${id}`, vehicle);
   };
 
-  const licensePlateAlreadyExists = () => {
-    return vehicleList?.some(
-      (item) => item.licensePlate === vehicle.licensePlate
-    );
+  const licensePlateAlreadyExists = async () => {
+    const response = await api.get<IVehicle[]>("vehicles", {
+      params: {
+        licensePlate: vehicle.licensePlate,
+        _limit: 1,
+        _page: 1,
+      },
+    });
+    return response.data.length;
   };
 
   const addVehicle = async () => {
     const id = uuidv4();
-    if (licensePlateAlreadyExists()) {
+    if (await licensePlateAlreadyExists()) {
       return alert("Veículo já existe!");
     } else {
       await api.post<IVehicle>("vehicles", {
         id,
         ...vehicle,
       });
+      navigate(`/vehicle/view/${id}`);
     }
   };
 
@@ -83,7 +89,7 @@ export const Vehicle = () => {
       editVehicle();
       navigate(`/vehicle/view/${vehicle.id}`);
     } else {
-      addVehicle();
+      await addVehicle();
     }
   };
 
@@ -159,9 +165,7 @@ export const Vehicle = () => {
               vehicle={vehicle}
               onInputChange={handleInputChange}
               onSelectChange={handleSelectChange}
-              onSaveVehicle={() => {
-                handleSaveVehicle();
-              }}
+              onSaveVehicle={handleSaveVehicle}
             />
           )}
         </VehicleInfo>

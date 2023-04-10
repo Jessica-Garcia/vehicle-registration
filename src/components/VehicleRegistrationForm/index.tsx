@@ -19,60 +19,57 @@ export const VehicleRegistrationForm = ({
   onSelectChange,
 }: IFormProps) => {
   return (
-    <FormContainer
-      onSubmit={() => {
-        onSaveVehicle();
-      }}
-    >
-      <label htmlFor="licensePlate">Placa</label>
-      <input
-        autoComplete="off"
-        type="text"
-        name="licensePlate"
-        id="licensePlate"
-        value={vehicle?.licensePlate || ""}
-        onChange={onInputChange}
-        placeholder="Informe a placa"
-        required
-      />
+    <>
+      <FormContainer>
+        <label htmlFor="licensePlate">Placa</label>
+        <input
+          autoComplete="off"
+          type="text"
+          name="licensePlate"
+          id="licensePlate"
+          value={vehicle?.licensePlate || ""}
+          onChange={onInputChange}
+          placeholder="Informe a placa"
+          required
+        />
 
-      <label htmlFor="brand">Marca</label>
-      <VehicleAttributesSelect
-        value={vehicle?.brandId || ""}
-        name="brand"
-        selectChange={onSelectChange}
-        url={`https://parallelum.com.br/fipe/api/v2/cars/brands`}
-        disabled={!vehicle.licensePlate}
-      />
+        <label htmlFor="brand">Marca</label>
+        <VehicleAttributesSelect
+          value={vehicle?.brandId || ""}
+          name="brand"
+          selectChange={onSelectChange}
+          url={`https://parallelum.com.br/fipe/api/v2/cars/brands`}
+          disabled={!vehicle.licensePlate}
+        />
 
-      <label htmlFor="year">Ano</label>
-      <VehicleAttributesSelect
-        value={vehicle?.yearId || ""}
-        name="year"
-        selectChange={onSelectChange}
-        url={
-          vehicle.brand
-            ? `https://parallelum.com.br/fipe/api/v2/cars/brands/${vehicle.brandId}/years`
-            : ""
-        }
-        disabled={!vehicle.brand}
-      />
+        <label htmlFor="year">Ano</label>
+        <VehicleAttributesSelect
+          value={vehicle?.yearId || ""}
+          name="year"
+          selectChange={onSelectChange}
+          url={
+            vehicle.brand
+              ? `https://parallelum.com.br/fipe/api/v2/cars/brands/${vehicle.brandId}/years`
+              : ""
+          }
+          disabled={!vehicle.brand}
+        />
 
-      <label htmlFor="model">Modelo</label>
+        <label htmlFor="model">Modelo</label>
 
-      <VehicleAttributesSelect
-        value={vehicle?.modelId || ""}
-        name="model"
-        selectChange={onSelectChange}
-        disabled={!vehicle.brand || !vehicle.year}
-        url={
-          vehicle.year
-            ? `https://parallelum.com.br/fipe/api/v2/cars/brands/${vehicle.brandId}/years/${vehicle.yearId}/models`
-            : ""
-        }
-      />
-
-      <button type="submit">Salvar</button>
+        <VehicleAttributesSelect
+          value={vehicle?.modelId || ""}
+          name="model"
+          selectChange={onSelectChange}
+          disabled={!vehicle.brand || !vehicle.year}
+          url={
+            vehicle.year
+              ? `https://parallelum.com.br/fipe/api/v2/cars/brands/${vehicle.brandId}/years/${vehicle.yearId}/models`
+              : ""
+          }
+        />
+      </FormContainer>
+      <button onClick={onSaveVehicle}>Salvar</button>
 
       {window.location.pathname === `/vehicle/edit/${vehicle.id}` ? (
         <NavLink to={`/vehicle/view/${vehicle.id}`}>
@@ -83,6 +80,6 @@ export const VehicleRegistrationForm = ({
           <ArrowFatLeft /> voltar
         </NavLink>
       )}
-    </FormContainer>
+    </>
   );
 };

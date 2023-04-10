@@ -1,9 +1,4 @@
-import {
-  PlusCircle,
-  CaretLeft,
-  CaretRight,
-  ArrowFatLeft,
-} from "phosphor-react";
+import { PlusCircle, CaretLeft, CaretRight } from "phosphor-react";
 import { useContext, useState } from "react";
 import {
   AddButton,
@@ -27,10 +22,8 @@ export const Home = () => {
     currentPage,
     pages,
     setCurrentPage,
-    // setVehicleList,
     setRecordLimitPerPage,
     setQuery,
-    // getVehicles,
     deleteVehicle,
   } = useContext(VehiclesContext);
 
@@ -72,39 +65,31 @@ export const Home = () => {
   return (
     <HomeContainer>
       <SearchForm onGetVehicles={resetPage} onResetSearch={resetPage} />
+      <Options>
+        <select
+          onChange={(e) => {
+            setRecordLimitPerPage(Number(e.target.value));
+            setCurrentPage(1);
+          }}
+        >
+          <option value="5"> Exibir 5 veículos</option>
+          <option value="10">Exibir 10 Veículos</option>
+          <option value="15">Exibir 15 Veículos</option>
+          <option value="20">Exibir 20 Veículos</option>
+        </select>
+        <AddButton>
+          <a href="/vehicle/add">
+            <PlusCircle weight="bold" size={20} /> Novo
+          </a>
+        </AddButton>
+      </Options>
 
       {vehicleList?.length === 0 ? (
         <NotFoundInSerach>
-          <span>Veículo não encontrado</span>
-          <button
-            onClick={() => {
-              setCurrentPage(1);
-              setQuery("");
-            }}
-          >
-            <ArrowFatLeft weight="bold" /> Voltar
-          </button>
+          <span>Não há veículo cadastrado.</span>
         </NotFoundInSerach>
       ) : (
         <>
-          <Options>
-            <select
-              onChange={(e) => {
-                setRecordLimitPerPage(Number(e.target.value));
-                setCurrentPage(1);
-              }}
-            >
-              <option value="5"> Exibir 5 veículos</option>
-              <option value="10">Exibir 10 Veículos</option>
-              <option value="15">Exibir 15 Veículos</option>
-              <option value="20">Exibir 20 Veículos</option>
-            </select>
-            <AddButton>
-              <a href="/vehicle/add">
-                <PlusCircle weight="bold" size={20} /> Novo
-              </a>
-            </AddButton>
-          </Options>
           <VehicleTable>
             <thead>
               <tr>

@@ -26,9 +26,6 @@ export const Options = styled.div`
     background: ${(props) => props.theme["gray-600"]};
     color: ${(props) => props.theme["blue-100"]};
     padding: 0 1rem;
-
-    &::placeholder {
-    }
   }
 `;
 
@@ -157,7 +154,7 @@ export const AddButton = styled.button`
 
 export const NotFoundInSerach = styled.div`
   width: 60%;
-  height: 45vh;
+  height: 20vh;
   position: relative;
   display: flex;
   align-items: center;
@@ -166,35 +163,13 @@ export const NotFoundInSerach = styled.div`
   border-radius: 8px;
   gap: 3rem;
 
-  top: 30vh;
+  top: 10vh;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: ${(props) => props.theme["gray-900"]};
+  //background: ${(props) => props.theme["gray-900"]};
   color: ${(props) => props.theme["gray-100"]};
 
   span {
     font-size: 2rem;
   }
-
-  button {
-    height: 40px;
-    width: 110px;
-    border-radius: 8px;
-    border: 0;
-    color: ${(props) => props.theme.white};
-    font-size: 1.2rem;
-    font-weight: bold;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0.5rem;
-    background: ${(props) => props.theme["blue-600"]};
-  }
 `;
-
-/* export const ButtonsContainer = styled.div`
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: center;
-  gap: 0.5rem;
-`; */

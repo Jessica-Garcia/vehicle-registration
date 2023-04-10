@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const NotFoundContainer = styled.div`
   border: 0;
-  // background: ${(props) => props.theme["gray-900"]};
   color: ${(props) => props.theme["gray-300"]};
   padding: 2rem 1rem;
   width: 35rem;

@@ -13,22 +13,22 @@ interface VehiclesProviderProps {
 }
 
 interface VehiclesContextType {
-  vehicleList: IVehicle[] | undefined;
-  totalVehicle: number;
-  currentPage: number;
-  totalPages: number;
-  pages: number[];
-  recordLimitPerPage: number;
-  query: string;
-  setVehicleList: React.Dispatch<React.SetStateAction<IVehicle[] | undefined>>;
-  setTotalVehicle: React.Dispatch<React.SetStateAction<number>>;
-  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
-  setTotalPages: React.Dispatch<React.SetStateAction<number>>;
-  setPages: React.Dispatch<React.SetStateAction<number[]>>;
-  setRecordLimitPerPage: React.Dispatch<React.SetStateAction<number>>;
-  setQuery: React.Dispatch<React.SetStateAction<string>>;
-  getVehicles: () => Promise<void>;
-  deleteVehicle: (id: string | undefined) => Promise<void>;
+  vehicleList: IVehicle[] | undefined; // home vehicle
+  // totalVehicle: number;
+  currentPage: number; // home
+  totalPages: number; // home
+  pages: number[]; // home
+  // recordLimitPerPage: number;
+  // query: string;
+  // setVehicleList: React.Dispatch<React.SetStateAction<IVehicle[] | undefined>>;
+  // setTotalVehicle: React.Dispatch<React.SetStateAction<number>>;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>; // home
+  // setTotalPages: React.Dispatch<React.SetStateAction<number>>;
+  // setPages: React.Dispatch<React.SetStateAction<number[]>>;
+  setRecordLimitPerPage: React.Dispatch<React.SetStateAction<number>>; // home
+  setQuery: React.Dispatch<React.SetStateAction<string>>; // home
+  getVehicles: () => Promise<void>; // vehicle
+  deleteVehicle: (id: string | undefined) => Promise<void>; // home
 }
 
 export const VehiclesContext = createContext({} as VehiclesContextType);
@@ -51,6 +51,11 @@ export const VehiclesProvider = ({ children }: VehiclesProviderProps) => {
         _page: currentPage,
       },
     });
+
+    if (!response.data.length && currentPage !== 1) {
+      setCurrentPage((state) => state - 1);
+      return;
+    }
 
     setTotalVehicle(Number(response.headers["x-total-count"]));
     setTotalPages(Math.ceil(totalVehicle / recordLimitPerPage));
@@ -81,18 +86,18 @@ export const VehiclesProvider = ({ children }: VehiclesProviderProps) => {
     <VehiclesContext.Provider
       value={{
         vehicleList,
-        query,
+        // query,
         currentPage,
-        totalVehicle,
+        // totalVehicle,
         totalPages,
         pages,
-        recordLimitPerPage,
+        // recordLimitPerPage,
         setQuery,
-        setVehicleList,
-        setTotalVehicle,
+        // setVehicleList,
+        // setTotalVehicle,
         setCurrentPage,
-        setTotalPages,
-        setPages,
+        // setTotalPages,
+        // setPages,
         setRecordLimitPerPage,
         getVehicles,
         deleteVehicle,
