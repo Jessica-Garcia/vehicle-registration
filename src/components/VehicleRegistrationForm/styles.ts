@@ -22,27 +22,27 @@ export const FormContainer = styled.form`
     font-size: 1.1rem;
     font-weight: 700;
   }
+`;
 
-  button[type="submit"] {
-    height: 58px;
-    border: 0;
-    background: ${(props) => props.theme["blue-500"]};
-    color: ${(props) => props.theme.white};
-    font-weight: bold;
-    padding: 0 1.25rem;
-    border-radius: 6px;
-    margin-top: 1.5rem;
-    cursor: pointer;
+export const SaveButton = styled.button`
+  height: 58px;
+  border: 0;
+  background: ${(props) => props.theme["blue-500"]};
+  color: ${(props) => props.theme.white};
+  font-weight: bold;
+  padding: 0 1.25rem;
+  border-radius: 6px;
+  margin-top: 1.5rem;
+  cursor: pointer;
 
-    &:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
 
-    &:not(:disabled):hover {
-      background: ${(props) => props.theme["blue-600"]};
-      transition: background-color 0.2s;
-    }
+  &:not(:disabled):hover {
+    background: ${(props) => props.theme["blue-600"]};
+    transition: background-color 0.2s;
   }
 
   a {
@@ -53,6 +53,27 @@ export const FormContainer = styled.form`
     align-items: center;
     cursor: pointer;
     font-size: 1.2rem;
+
+    &:hover {
+      opacity: 0.6;
+      transition: background-color 0.2s;
+    }
+  }
+`;
+
+export const Back = styled.button`
+  background: transparent;
+  border: 0;
+  margin: 10px;
+  a {
+    color: ${(props) => props.theme["gray-300"]};
+    font-weight: bold;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    cursor: pointer;
+    font-size: 1.2rem;
+    text-decoration: none;
 
     &:hover {
       opacity: 0.6;

@@ -13,22 +13,15 @@ interface VehiclesProviderProps {
 }
 
 interface VehiclesContextType {
-  vehicleList: IVehicle[] | undefined; // home vehicle
-  // totalVehicle: number;
-  currentPage: number; // home
-  totalPages: number; // home
-  pages: number[]; // home
-  // recordLimitPerPage: number;
-  // query: string;
-  // setVehicleList: React.Dispatch<React.SetStateAction<IVehicle[] | undefined>>;
-  // setTotalVehicle: React.Dispatch<React.SetStateAction<number>>;
-  setCurrentPage: React.Dispatch<React.SetStateAction<number>>; // home
-  // setTotalPages: React.Dispatch<React.SetStateAction<number>>;
-  // setPages: React.Dispatch<React.SetStateAction<number[]>>;
-  setRecordLimitPerPage: React.Dispatch<React.SetStateAction<number>>; // home
-  setQuery: React.Dispatch<React.SetStateAction<string>>; // home
+  vehicleList: IVehicle[] | undefined;
+  currentPage: number;
+  totalPages: number;
+  pages: number[];
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+  setRecordLimitPerPage: React.Dispatch<React.SetStateAction<number>>;
+  setQuery: React.Dispatch<React.SetStateAction<string>>;
   getVehicles: () => Promise<void>; // vehicle
-  deleteVehicle: (id: string | undefined) => Promise<void>; // home
+  deleteVehicle: (id: string | undefined) => Promise<void>;
 }
 
 export const VehiclesContext = createContext({} as VehiclesContextType);
@@ -52,22 +45,23 @@ export const VehiclesProvider = ({ children }: VehiclesProviderProps) => {
       },
     });
 
-    if (!response.data.length && currentPage !== 1) {
+    if (currentPage !== 1 && !response.data.length) {
       setCurrentPage((state) => state - 1);
       return;
     }
-
-    setTotalVehicle(Number(response.headers["x-total-count"]));
-    setTotalPages(Math.ceil(totalVehicle / recordLimitPerPage));
+    const allVehicles = Number(response.headers["x-total-count"]);
+    const pagesQuantity = Math.ceil(allVehicles / recordLimitPerPage);
+    setTotalVehicle(allVehicles);
+    setTotalPages(pagesQuantity);
 
     const arrayPages = [];
-    for (let page = 1; page <= totalPages; page++) {
+    for (let page = 1; page <= pagesQuantity; page++) {
       arrayPages.push(page);
     }
     setPages(arrayPages);
 
     response.data && setVehicleList(response.data);
-  }, [currentPage, query, totalVehicle, totalPages, recordLimitPerPage]);
+  }, [currentPage, query, recordLimitPerPage]);
 
   const deleteVehicle = async (id: string | undefined) => {
     await api.delete<IVehicle>(`vehicles/${id}`);
@@ -86,18 +80,11 @@ export const VehiclesProvider = ({ children }: VehiclesProviderProps) => {
     <VehiclesContext.Provider
       value={{
         vehicleList,
-        // query,
         currentPage,
-        // totalVehicle,
         totalPages,
         pages,
-        // recordLimitPerPage,
         setQuery,
-        // setVehicleList,
-        // setTotalVehicle,
         setCurrentPage,
-        // setTotalPages,
-        // setPages,
         setRecordLimitPerPage,
         getVehicles,
         deleteVehicle,

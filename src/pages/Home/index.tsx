@@ -27,12 +27,12 @@ export const Home = () => {
     deleteVehicle,
   } = useContext(VehiclesContext);
 
-  const [pageNumberLimit, setPageNumberLimit] = useState(3);
+  const pageNumberLimit = 3;
   const [maxPageNumberLimit, setMaxPageNumberLimit] = useState(3);
   const [minPageNumberLimit, setMinPageNumberLimit] = useState(0);
 
   const handleNextPageButton = () => {
-    setCurrentPage(currentPage + 1);
+    setCurrentPage((state) => state + 1);
 
     if (currentPage + 1 > maxPageNumberLimit) {
       setMaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit);
@@ -64,12 +64,11 @@ export const Home = () => {
 
   return (
     <HomeContainer>
-      <SearchForm onGetVehicles={resetPage} onResetSearch={resetPage} />
+      <SearchForm onGetVehicles={resetPage} />
       <Options>
         <select
           onChange={(e) => {
             setRecordLimitPerPage(Number(e.target.value));
-            setCurrentPage(1);
           }}
         >
           <option value="5"> Exibir 5 veículos</option>
@@ -89,31 +88,29 @@ export const Home = () => {
           <span>Não há veículo cadastrado.</span>
         </NotFoundInSerach>
       ) : (
-        <>
-          <VehicleTable>
-            <thead>
-              <tr>
-                <th>Placa</th>
-                <th>Marca</th>
-                <th>Modelo</th>
-                <th>Ano</th>
-                <th>Ações</th>
-              </tr>
-            </thead>
-            <tbody>
-              {vehicleList &&
-                vehicleList.map((vehicle) => {
-                  return (
-                    <TableItem
-                      key={vehicle.id}
-                      vehicle={vehicle}
-                      onDeleteVehicle={handleDeleteVehicle}
-                    />
-                  );
-                })}
-            </tbody>
-          </VehicleTable>
-        </>
+        <VehicleTable>
+          <thead>
+            <tr>
+              <th>Placa</th>
+              <th>Marca</th>
+              <th>Modelo</th>
+              <th>Ano</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            {vehicleList &&
+              vehicleList.map((vehicle) => {
+                return (
+                  <TableItem
+                    key={vehicle.id}
+                    vehicle={vehicle}
+                    onDeleteVehicle={handleDeleteVehicle}
+                  />
+                );
+              })}
+          </tbody>
+        </VehicleTable>
       )}
 
       {vehicleList && totalPages > 1 && (

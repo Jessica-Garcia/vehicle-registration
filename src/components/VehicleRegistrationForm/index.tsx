@@ -3,7 +3,7 @@ import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { IVehicle } from "../../@types/IVehicle";
 import { VehicleAttributesSelect } from "../VehicleAttributesSelect";
-import { FormContainer } from "./styles";
+import { Back, FormContainer, SaveButton } from "./styles";
 
 interface IFormProps {
   vehicle: IVehicle;
@@ -69,16 +69,20 @@ export const VehicleRegistrationForm = ({
           }
         />
       </FormContainer>
-      <button onClick={onSaveVehicle}>Salvar</button>
+      <SaveButton onClick={onSaveVehicle}>Salvar</SaveButton>
 
       {window.location.pathname === `/vehicle/edit/${vehicle.id}` ? (
-        <NavLink to={`/vehicle/view/${vehicle.id}`}>
-          <ArrowFatLeft /> voltar
-        </NavLink>
+        <Back>
+          <NavLink to={`/vehicle/view/${vehicle.id}`}>
+            <ArrowFatLeft /> voltar
+          </NavLink>
+        </Back>
       ) : (
-        <NavLink to="/">
-          <ArrowFatLeft /> voltar
-        </NavLink>
+        <Back>
+          <NavLink to="/">
+            <ArrowFatLeft /> voltar
+          </NavLink>
+        </Back>
       )}
     </>
   );

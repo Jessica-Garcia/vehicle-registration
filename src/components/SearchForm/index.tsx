@@ -5,33 +5,27 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 const searchFormSchema = z.object({
-  query: z.string(),
+  query: z.string().min(1),
 });
 
 type SearchFormInputs = z.infer<typeof searchFormSchema>;
-
 interface SearchFormProps {
-  onGetVehicles: (query: string) => void;
-  onResetSearch: () => void;
+  onGetVehicles: (query?: string) => void;
 }
 
-export const SearchForm = ({
-  onGetVehicles,
-  onResetSearch,
-}: SearchFormProps) => {
-  const { register, reset, handleSubmit, watch } = useForm<SearchFormInputs>({
+export const SearchForm = ({ onGetVehicles }: SearchFormProps) => {
+  const { register, handleSubmit, watch } = useForm<SearchFormInputs>({
     resolver: zodResolver(searchFormSchema),
   });
 
   const query = watch("query");
 
-  const handleSearchVehicles = async (data: SearchFormInputs) => {
+  const handleSearchVehicles = (data: SearchFormInputs) => {
     onGetVehicles(data.query);
   };
 
   const handleResetSearchAndReturnToFirstPage = () => {
-    onResetSearch();
-    reset();
+    onGetVehicles();
   };
 
   return (

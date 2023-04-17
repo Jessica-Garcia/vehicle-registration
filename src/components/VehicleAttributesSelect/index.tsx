@@ -18,7 +18,6 @@ export const VehicleAttributesSelect = ({
   const [loading, setLoading] = useState(false);
 
   const getList = useCallback(async () => {
-    setVehicleAttributes([]);
     setLoading(true);
     try {
       const { data } = await axios.get<IVehicleAttributes[] | undefined>(url);

@@ -11,8 +11,7 @@ import { VehicleRegistrationForm } from "../../components/VehicleRegistrationFor
 import { DeleteModal } from "../../components/DeleteModal";
 
 export const Vehicle = () => {
-  const { vehicleList, deleteVehicle, getVehicles } =
-    useContext(VehiclesContext);
+  const { deleteVehicle, getVehicles } = useContext(VehiclesContext);
   const [vehicle, setVehicle] = useState<IVehicle>({} as IVehicle);
   const [loading, setLoading] = useState(false);
   const { id } = useParams();
@@ -68,11 +67,15 @@ export const Vehicle = () => {
         _page: 1,
       },
     });
+    console.log(response);
     return response.data.length;
   };
 
   const addVehicle = async () => {
     const id = uuidv4();
+    if (!vehicle.licensePlate) {
+      return alert("Insira a placa do veículo");
+    }
     if (await licensePlateAlreadyExists()) {
       return alert("Veículo já existe!");
     } else {
